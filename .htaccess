@@ -1,0 +1,32 @@
+RewriteEngine On
+RewriteBase /
+
+# Rewrite images and downloads (PDFs, MP3s, MP4s etc.) to /content/...
+# Ignore /touch/
+# Add more file extensions if needed
+RewriteCond %{REQUEST_URI} !^/content/ [NC]
+RewriteCond %{REQUEST_URI} !^/touch/ [NC]
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|svg|gif|png|webp|pdf|mp3|mp4)$ [NC]
+RewriteRule ^(.*)$ /content/$1 [L]
+
+# Add index.html to URLs with a trailing slash
+RewriteRule ^(.*)/$ /$1/index.html [L]
+
+# Rewrite URLs without extension to .html (if you like it)
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !/$
+#RewriteCond %{REQUEST_URI} !\.[a-zA-Z]{2,5}$ [NC]
+#RewriteRule ^(.*)$ $1.html [L]
+
+# The LOWMARK part
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
