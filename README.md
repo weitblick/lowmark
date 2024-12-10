@@ -23,7 +23,7 @@ _This is where the documentation is created. So far there are only a few brief n
 ## Links
 
 * Internal links can also point to the .md files. This means that they are also consistent offline. They are rewritten to .html by the CMS.
-* External links are automatically extended by a target=“_blank”.
+* External links are automatically extended by a target="_blank".
 * URLs that are written out are automatically linked.
 * mailencode = true controls that unlinked e-mail addresses are automatically linked and encrypted.  
   ATTENTION: This means that e-mail addresses must not be linked in the Markdown file. You can also switch this on and off individually per page via the frontmatter.
@@ -75,7 +75,7 @@ Jump targets can be attached to headings according to this scheme:
 * title is also interpreted as a caption (figcaption)
 
 ```
-[:left Alt-Text](/images/img.webp “caption”)
+[:left Alt-Text](/images/img.webp "caption")
 ```
 
 ## Syntax highlighting
@@ -90,7 +90,7 @@ Jump targets can be attached to headings according to this scheme:
 * The favicons are located in the `touch/` directory and can be created with https://favicon.io/favicon-generator/.
 * favicon.ico is located in the web server root directory
 
-# Installation
+## Installation
 
 
 * Copy files to server root directory
@@ -101,12 +101,12 @@ Jump targets can be attached to headings according to this scheme:
 * customize touch/site.webmanifest (title)!
 * customize favicons
 
-## Installation in subfolder
+### Installation in subfolder
 
 (e.g. “sub”)
 
 * Important! All links relative to the base - i.e. without leading slash
-* add `<base href=“https://meine-domain.de/sub/”>` to index.php (also applies to editor.php)
+* add `<base href="https://meine-domain.de/sub/">` to index.php (also applies to editor.php)
 * Adapt .htaccess:
   * RewriteBase /sub/
   * put /sub/ in front in all RewriteRules
