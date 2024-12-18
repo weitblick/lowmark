@@ -9,7 +9,7 @@
 	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██ 
                                                                                                                           
 	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.1 (2024-05-25)
+	Version: 0.2 (2024-12-18)
 	https://lowmark.de
 	
 	by Erhard Maria Klein
@@ -85,7 +85,7 @@ function imgToFigure($html) {
     $html = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $html); // Remove enclosing <p> tags if necessary
 
     // Replacing the <img> tag with <figure> tags
-    $pattern = '/<img\s+([^>]*)>/';    
+    $pattern = '/<img\s+([^>]*)>/';
     $html = preg_replace_callback($pattern, function($matches) {
         $imgTag = $matches[0];
         $attributes = $matches[1];
@@ -95,12 +95,12 @@ function imgToFigure($html) {
         if (preg_match('/alt=":((left|right|center)(\s*))/', $attributes, $altMatches)) {
             $attributes = str_replace(':' . $altMatches[1], '', $attributes); // Remove the alignment part from the alt attribute
             $align = trim($altMatches[1]); // align without trailing spaces
-            $imgTag = '<img ' . $attributes . ' />'; // Rebuild the img tag with modified attributes
+            $imgTag = '<img ' . $attributes . '>'; // Rebuild the img tag with modified attributes
         }
 
         // Add loading="lazy"
-        $imgTag = str_replace('/>', 'loading="lazy" />', $imgTag);
-        
+        $imgTag = preg_replace('/\s*\/>$/', ' loading="lazy" />', $imgTag);
+
         // Build the figure tag
         $figureTag = '<figure';
         if ($align) {
