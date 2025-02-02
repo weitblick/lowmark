@@ -111,7 +111,7 @@ function imgToFigure($html) {
         // Use the title attribute for <figcaption> - if available
         if (preg_match('/title="([^"]*)"/', $attributes, $titleMatches)) {
             $caption = $titleMatches[1];
-            $caption = html_entity_decode(html_entity_decode($caption, ENT_QUOTES), ENT_QUOTES);
+            $caption = html_entity_decode(html_entity_decode($caption, ENT_QUOTES), ENT_QUOTES); // prevent double encoding of special characters
             $figureTag .= "<figcaption>$caption</figcaption>";
         }
         $figureTag .= "</figure>";
