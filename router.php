@@ -7,7 +7,7 @@
 	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██
 
 	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.3 (2025-03-17)
+	Version: 0.31 (2025-04-13)
 	https://lowmark.de
 
 	by Erhard Maria Klein
@@ -43,18 +43,15 @@ if (file_exists(__DIR__ . $request)) {
     return false;
 }
 
-// Rewrite images and downloads (PDFs, MP3s, MP4s etc.) to /content/...
-// Ignore /touch/
-// Add more file extensions if needed
-// if (!preg_match('#^/content/#i', $request) && !preg_match('#^/touch/#i', $request)) {
+// Rewrite requests for non-existing files
+// to /content/, but avoid recursion and
+// ignore .html
 if (!preg_match('#\.html$#', $request) && !preg_match('#^/content/#', $request)) {
-    // if (preg_match('#\.(jpg|jpeg|svg|gif|png|webp|pdf|mp3|mp4)$#i', $request)) {
-        $contentPath = __DIR__ . '/content' . $request;
-        if (file_exists($contentPath)) {
-            header('Content-Type: ' . mime_content_type($contentPath));
-            readfile($contentPath);
-            exit;
-    //    }
+    $contentPath = __DIR__ . '/content' . $request;
+    if (file_exists($contentPath)) {
+        header('Content-Type: ' . mime_content_type($contentPath));
+        readfile($contentPath);
+        exit;
     }
 }
 
