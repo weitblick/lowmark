@@ -18,7 +18,7 @@ RewriteBase /
 ##############################################
 # Rewrite image, media, and document requests
 # to /content/, unless already in /content/ or /touch/
-# add your content types if needed (eg. docx)
+# add your content types if needed (e.g. docx)
 ##############################################
 
 RewriteCond %{REQUEST_URI} !^/content/ [NC]
@@ -46,9 +46,13 @@ RewriteRule ^(.*)/$ $1/index.html [L]
 #RewriteRule ^(.*)$ $1.html [L]
 
 ##############################################
-# LOWMARK fallback: send all other requests
+# LOWMARK fallback: route all other requests
 # to index.php with ?q=...
 # Example: /blog/post-title → index.php?q=blog/post-title
+#
+# !-f : if the requested file does NOT exist
+# !-d : and the requested directory does NOT exist
+# QSA : append original query string (e.g. ?foo=bar is retained)
 ##############################################
 
 RewriteCond %{REQUEST_FILENAME} !-f
