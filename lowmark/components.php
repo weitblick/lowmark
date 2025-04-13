@@ -18,7 +18,7 @@
 	
 */
 
-// ============ LOWMARK EXTENSIONS ================
+// ============ LOWMARK COMPONENTS ================
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading an alignment
 function img_to_figure($html) {
