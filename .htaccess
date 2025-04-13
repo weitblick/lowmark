@@ -1,5 +1,5 @@
 ##############################################
-# LOWMARK .htaccess (ROOT version)
+# LOWMARK .htaccess
 #
 # Installation in document root (e.g. example.com/)
 #
@@ -14,18 +14,6 @@ RewriteEngine On
 
 # Base path relative to domain root — change to /sub/ if using a subfolder
 RewriteBase /
-
-##############################################
-# Rewrite image, media, and document requests
-# to /content/, unless already in /content/ or /touch/
-# add your content types if needed (e.g. docx)
-##############################################
-
-RewriteCond %{REQUEST_URI} !^/content/ [NC]
-RewriteCond %{REQUEST_URI} !^/touch/   [NC]
-RewriteCond %{REQUEST_URI} \.(jpg|jpeg|svg|gif|png|webp|pdf|mp3|mp4)$ [NC]
-
-RewriteRule ^(.*)$ content/$1 [L]
 
 ##############################################
 # Add index.html to URLs ending in a slash
@@ -44,6 +32,18 @@ RewriteRule ^(.*)/$ $1/index.html [L]
 #RewriteCond %{REQUEST_URI} !/$
 #RewriteCond %{REQUEST_URI} !\.[a-zA-Z]{2,5}$ [NC]
 #RewriteRule ^(.*)$ $1.html [L]
+
+##############################################
+# Rewrite requests for non-existing files
+# to /content/, but avoid recursion and
+# ignore .html
+##############################################
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(html)$
+RewriteCond %{REQUEST_URI} !^/content/
+RewriteRule ^(.*)$ content/$1 [L]
 
 ##############################################
 # LOWMARK fallback: route all other requests
