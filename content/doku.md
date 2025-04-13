@@ -135,6 +135,12 @@ Wenn Du eine Seite löschen willst, wüdest Du die Seite öffnen wie oben beschr
 
 * tinyfilemanager.php
 
+## local preview server
+
+- install php (>= 7.0)
+- call in project root folder: `php -S localhost:8000 router.php`
+- browse http://localhost:8000
+
 # htaccess
 
 Security-Einstellungen: https://observatory.mozilla.org/
