@@ -21,7 +21,7 @@
     <meta property="og:url" content="<?= $lowmark['base_url'] ?>">
     <meta property="og:type" content="website">
     
-    <link href="/css/lowmark_simple.css?variant=3" rel="stylesheet">
+    <link href="/css/lowmark_simple.css" rel="stylesheet">
     <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' ?>
     <style>
     /* LOWMARK Theme »simple« */

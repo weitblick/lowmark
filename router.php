@@ -33,6 +33,11 @@ ini_set('display_errors', 1);
 // Decode current request URL
 $request = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
+// Add index.html to URLs with a trailing slash
+if (preg_match('#(.+)/$#', $request)) {
+	$request = $request . 'index.html';
+}
+
 // If a file or directory exists, deliver directly
 if (file_exists(__DIR__ . $request)) {
     return false;
@@ -41,20 +46,16 @@ if (file_exists(__DIR__ . $request)) {
 // Rewrite images and downloads (PDFs, MP3s, MP4s etc.) to /content/...
 // Ignore /touch/
 // Add more file extensions if needed
-if (!preg_match('#^/content/#i', $request) && !preg_match('#^/touch/#i', $request)) {
-    if (preg_match('#\.(jpg|jpeg|svg|gif|png|webp|pdf|mp3|mp4)$#i', $request)) {
+// if (!preg_match('#^/content/#i', $request) && !preg_match('#^/touch/#i', $request)) {
+if (!preg_match('#\.html$#', $request) && !preg_match('#^/content/#', $request)) {
+    // if (preg_match('#\.(jpg|jpeg|svg|gif|png|webp|pdf|mp3|mp4)$#i', $request)) {
         $contentPath = __DIR__ . '/content' . $request;
         if (file_exists($contentPath)) {
             header('Content-Type: ' . mime_content_type($contentPath));
             readfile($contentPath);
             exit;
-        }
+    //    }
     }
-}
-
-// Add index.html to URLs with a trailing slash
-if (preg_match('#(.+)/$#', $request)) {
-    $request = $request . 'index.html';
 }
 
 // The LOWMARK part
