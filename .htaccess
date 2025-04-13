@@ -18,6 +18,7 @@ RewriteBase /
 ##############################################
 # Rewrite image, media, and document requests
 # to /content/, unless already in /content/ or /touch/
+# add your content types if needed (eg. docx)
 ##############################################
 
 RewriteCond %{REQUEST_URI} !^/content/ [NC]
