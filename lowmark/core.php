@@ -21,7 +21,7 @@
 
 */
 
-// ============ LOWMARK MAIN PART ================
+// ============ LOWMARK CORE ================
 
 $start_time = microtime(true); // start render time
 
