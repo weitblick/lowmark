@@ -14,7 +14,7 @@ https://github.com/maolonglong/hugo-simple/tree/main/exampleSite
 ## Frontmatter
 
 * im vereinfachten(!) yaml-Format (---)
-* Folgende Attribute werden unterstützt:  title, description, image und Flags für Erweiterungen des Content-Renderings: extend_links, highlight, img_to_figure, mail_encode, raw_html, headline_ids (+headline_to_top).
+* unterstütze Attribute: siehe config.php
 * eigene Parameter im Template einbinden:  
   `<?= $lowmark['key'] ?? '' ?>`
 

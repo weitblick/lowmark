@@ -19,7 +19,7 @@ _This is where the documentation is created. So far there are only a few brief n
 
 
 * in simplified(!) yaml format (---)
-* The following attributes are supported: title, description, image and as flags for content rendering extensions: detailsWorkaround, extendATag, highlight, imgToFigure, mailencode
+* supported attrributes: see config.php
 * Integrate your own extensions in the template:  
 
   `<?= $lowmark['key'] ?? '' ?>`
