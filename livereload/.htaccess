@@ -1,0 +1,24 @@
+# deny access to _all_ files in lib/
+# line below if for Apache 2.4
+<ifModule mod_authz_core.c>
+    Require all denied
+</ifModule>
+
+# line below if for Apache 2.2
+<ifModule !mod_authz_core.c>
+    deny from all
+    Satisfy All
+</ifModule>
+
+# section for Apache 2.2 and 2.4
+IndexIgnore *
+
+# Allow access to .js files
+<FilesMatch "\.js$">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        allow from all
+    </IfModule>
+</FilesMatch>
