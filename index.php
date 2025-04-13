@@ -70,7 +70,7 @@
     <header>
         <div class="sitename">
         	<a href="/">
-        	    <svg style="width: 150px; height: auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 178" alt="Logo <?= $sitename?>">
+        	    <svg style="width: 150px; height: auto;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 810 178" alt="Logo <?= $lowmark['sitename'] ?>">
                         <style>
                             .cls-1 {
                                 fill: var(--logo-color);
