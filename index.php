@@ -1,4 +1,4 @@
-<?php include_once 'lowmark/core.php'; // Lowmark Main Part ?>
+<?php include_once 'lowmark/core.php'; ?>
 <!doctype html>
 <html lang="de">
 <head>
@@ -24,7 +24,7 @@
     <link href="/css/lowmark_simple.css" rel="stylesheet">
     <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' ?>
     <style>
-    /* LOWMARK Theme »simple« */
+    /* lowmark theme »simple« */
     /* Use lowmark_simple.css */
     /* Monochrome color set */
 
