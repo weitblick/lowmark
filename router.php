@@ -27,7 +27,6 @@ ini_set('display_errors', 1);
 
 // write local error log to lowmark/php_errors.log
 // ini_set('log_errors', 1);
-// ini_set('log_errors', 1);
 // ini_set('error_log', 'lowmark/php_errors.log');
 
 // Decode current request URL
@@ -47,10 +46,10 @@ if (file_exists(__DIR__ . $request)) {
 // to /content/, but avoid recursion and
 // ignore .html
 if (!preg_match('#\.html$#', $request) && !preg_match('#^/content/#', $request)) {
-    $contentPath = __DIR__ . '/content' . $request;
-    if (file_exists($contentPath)) {
-        header('Content-Type: ' . mime_content_type($contentPath));
-        readfile($contentPath);
+    $content_path = __DIR__ . '/content' . $request;
+    if (file_exists($content_path)) {
+        header('Content-Type: ' . mime_content_type($content_path));
+        readfile($content_path);
         exit;
     }
 }
