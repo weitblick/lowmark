@@ -30,12 +30,9 @@ include_once 'lowmark/Parsedown.php'; // Mrkdown parser. Download from https://g
 include_once 'lowmark/ParsedownExtra.php'; // Markdown extra extension. Download from https://github.com/erusev/parsedown-extra
 
 // set base url and canonical url
-if (empty($lowmark['base_url'])) {
-    $base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
-} else {
-    $base_url = rtrim($lowmark['base_url'], '/');
-}
-$lowmark['canonical_url'] = $base_url . $_SERVER['REQUEST_URI'];
+$lowmark['base_url'] ??= (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+$lowmark['base_url'] = rtrim($lowmark['base_url'], '/');
+$lowmark['canonical_url'] = $lowmark['base_url'] . $_SERVER['REQUEST_URI'];
 
 $path = $_GET['q'] ?? 'index.html'; // Get the path from the GET parameter q, default: index.html
 
