@@ -29,11 +29,6 @@ include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Mrkdown parser. Download from https://github.com/erusev/parsedown
 include_once 'lowmark/ParsedownExtra.php'; // Markdown extra extension. Download from https://github.com/erusev/parsedown-extra
 
-// set base url and canonical url
-$lowmark['base_url'] ??= (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
-$lowmark['base_url'] = rtrim($lowmark['base_url'], '/');
-$lowmark['canonical_url'] = $lowmark['base_url'] . $_SERVER['REQUEST_URI'];
-
 $path = $_GET['q'] ?? 'index.html'; // Get the path from the GET parameter q, default: index.html
 
 // A little security (no leading / and no ../)
@@ -73,6 +68,11 @@ if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the mark
     $lowmark['title']   = 'Error 404';
     $lowmark['content'] = "<h3>Error 404: Not Found</h3><p>Source: $converted_path</p>";
 }
+
+// set base url and canonical url
+$lowmark['base_url'] ??= (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
+$lowmark['base_url'] = rtrim($lowmark['base_url'], '/');
+$lowmark['canonical_url'] = $lowmark['base_url'] . $_SERVER['REQUEST_URI'];
 
 $end_time = microtime(true); // Determine the execution time of the script
 $execution_time = ($end_time - $start_time) * 1000; // Convert to milliseconds
