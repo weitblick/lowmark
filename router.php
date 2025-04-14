@@ -1,25 +1,26 @@
 <?php
 /*
-	██       ██████  ██     ███    ███  █████  ██████  ██   ██
-	██      ██    ██ ██     ████  ████ ██   ██ ██   ██ ██  ██
-	██      ██    ██ ██  █  ██ ████ ██ ███████ ██████  █████
-	██      ██    ██ ██ ███ ██  ██  ██ ██   ██ ██   ██ ██  ██
-	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██
+ ███
+ ███
+ ███    ██████    ██   ██    ████  ████     ██████     ████  ███   ██
+ ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ ███    ██████     ██████████    ██   ██   ██████ ██  ███    ███   ██
 
-	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.31 (2025-04-13)
-	https://lowmark.de
+ LOWMARK – A Low-tech Markdown Website Generator
 
-	by Erhard Maria Klein
-	emk@lowmark.de
-	CC BY-NC-SA 4.0
+ File:         router.php
+ Author:       Erhard Maria Klein <emk@lowmark.de>
+ Version:      0.31
+ Last updated: 2025-04-14
+ License:      CC BY-NC-SA 4.0
+ Homepage:     https://lowmark.de
+ Repository:   https://github.com/weitblick/lowmark
 
+ Description:  Router for local execution
+               start with: php -S localhost:8000 router.php
+               browse: http://localhost:8000
 */
-
-// ============ LOWMARK ROUTER FOR LOCAL EXECUTION ================
-//
-// start with: php -S localhost:8000 router.php
-// browse: http://localhost:8000
 
 // Error reporting
 error_reporting(E_ALL);

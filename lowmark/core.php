@@ -1,39 +1,33 @@
 <?php
 /*
+ ███
+ ███
+ ███    ██████    ██   ██    ████  ████     ██████     ████  ███   ██
+ ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ ███    ██████     ██████████    ██   ██   ██████ ██  ███    ███   ██
 
+ LOWMARK – A Low-tech Markdown Website Generator
 
-	██       ██████  ██     ███    ███  █████  ██████  ██   ██
-	██      ██    ██ ██     ████  ████ ██   ██ ██   ██ ██  ██
-	██      ██    ██ ██  █  ██ ████ ██ ███████ ██████  █████
-	██      ██    ██ ██ ███ ██  ██  ██ ██   ██ ██   ██ ██  ██
-	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██
+ File:         core.php
+ Author:       Erhard Maria Klein <emk@lowmark.de>
+ Version:      0.31
+ Last updated: 2025-04-14
+ License:      CC BY-NC-SA 4.0
+ Homepage:     https://lowmark.de
+ Repository:   https://github.com/weitblick/lowmark
 
-	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.31 (2025-04-13)
-	https://lowmark.de
-
-	by Erhard Maria Klein
-	emk@lowmark.de
-	CC BY-NC-SA 4.0
-
-	Parsedown & ParsedownExtra from https://parsedown.org/
-	highlight.js from https://highlightjs.org/
-
+ Description:  lowmark core
 */
-
-// ============ LOWMARK CORE ================
 
 $start_time = microtime(true); // start render time
 
 // Includes
-
-include_once 'lowmark/config.php'; // Default Configuration
-include_once 'lowmark/frontmatter.php'; // LOWMARK SIMPLE FRONTMATTER PARSER
-include_once 'lowmark/components.php'; // lowmark components
-include_once 'lowmark/Parsedown.php'; // Markdown Parser. Download from https://github.com/erusev/parsedown
-include_once 'lowmark/ParsedownExtra.php'; // Markdown Extra Extention. Download from https://github.com/erusev/parsedown-extra
-
-include_once 'lowmark/custom.php'; // LOEWENSTEIN CODE
+include_once 'lowmark/config.php'; // Default configuration
+include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
+include_once 'lowmark/components.php'; // Lowmark components
+include_once 'lowmark/Parsedown.php'; // Mrkdown parser. Download from https://github.com/erusev/parsedown
+include_once 'lowmark/ParsedownExtra.php'; // Markdown extra extension. Download from https://github.com/erusev/parsedown-extra
 
 // set base url and canonical url
 if (empty($lowmark['base_url'])) {
@@ -51,7 +45,7 @@ $path = ltrim($path, '/');
 
 $converted_path = preg_replace('/\.html$/', '.md', $path); // Change .html into .md
 $lowmark['home'] = ($converted_path == 'index.md'); // Identify the homepage
-$md_file_path = $lowmark['content_dir'] . $converted_path; // Path to the markdown file in the content directory
+$md_file_path = $lowmark['content_dir'] . $converted_path; // Path to markdown file in content directory
 
 if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the markdown file exists
     $markdown = file_get_contents($md_file_path); // Read the content of the markdown file
