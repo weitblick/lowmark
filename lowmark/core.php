@@ -26,7 +26,7 @@ $start_time = microtime(true); // start render time
 include_once 'lowmark/config.php'; // Default configuration
 include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
-include_once 'lowmark/Parsedown.php'; // Mrkdown parser. Download from https://github.com/erusev/parsedown
+include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown
 include_once 'lowmark/ParsedownExtra.php'; // Markdown extra extension. Download from https://github.com/erusev/parsedown-extra
 
 $path = $_GET['q'] ?? 'index.html'; // Get the path from the GET parameter q, default: index.html
