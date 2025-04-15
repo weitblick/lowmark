@@ -27,36 +27,36 @@ function img_to_figure($html) {
     // Replacing the <img> tag with <figure> tags
     $pattern = '/<img\s+([^>]*)>/';
     $html = preg_replace_callback($pattern, function($matches) {
-        $imgTag = $matches[0];
+        $img_tag = $matches[0];
         $attributes = $matches[1];
         $align = '';
 
         // Check for alignment in alt attribute
-        if (preg_match('/alt=":((left|right|center)(\s*))/', $attributes, $altMatches)) {
-            $attributes = str_replace(':' . $altMatches[1], '', $attributes); // Remove the alignment part from the alt attribute
-            $align = trim($altMatches[1]); // align without trailing spaces
-            $imgTag = '<img ' . $attributes . '>'; // Rebuild the img tag with modified attributes
+        if (preg_match('/alt=":((left|right|center)(\s*))/', $attributes, $alt_matches)) {
+            $attributes = str_replace(':' . $alt_matches[1], '', $attributes); // Remove the alignment part from the alt attribute
+            $align = trim($alt_matches[1]); // align without trailing spaces
+            $img_tag = '<img ' . $attributes . '>'; // Rebuild the img tag with modified attributes
         }
 
         // Add loading="lazy"
-        $imgTag = preg_replace('/\s*\/>$/', ' loading="lazy" />', $imgTag);
+        $img_tag = preg_replace('/\s*\/>$/', ' loading="lazy" />', $img_tag);
 
         // Build the figure tag
-        $figureTag = '<figure';
+        $figure_tag = '<figure';
         if ($align) {
-            $figureTag .= ' class="lowmark-' . $align . '"';
+            $figure_tag .= ' class="lowmark-' . $align . '"';
         }
-        $figureTag .= ">$imgTag";
+        $figure_tag .= ">$img_tag";
 
         // Use the title attribute for <figcaption> - if available
-        if (preg_match('/title="([^"]*)"/', $attributes, $titleMatches)) {
-            $caption = $titleMatches[1];
+        if (preg_match('/title="([^"]*)"/', $attributes, $title_matches)) {
+            $caption = $title_matches[1];
             $caption = html_entity_decode(html_entity_decode($caption, ENT_QUOTES), ENT_QUOTES); // prevent double encoding of special characters
-            $figureTag .= "<figcaption>$caption</figcaption>";
+            $figure_tag .= "<figcaption>$caption</figcaption>";
         }
-        $figureTag .= "</figure>";
+        $figure_tag .= "</figure>";
 
-        return $figureTag;
+        return $figure_tag;
     }, $html);
 
     return $html;
