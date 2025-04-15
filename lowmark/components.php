@@ -17,7 +17,7 @@ License:      CC BY-NC-SA 4.0
 Homepage:     https://lowmark.de
 Repository:   https://github.com/weitblick/lowmark
 
-Description:  additional features for images, anchors, mailencoding and <details>
+Description:  additional features for images, links, mailencoding and <details>
 */
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading an alignment
@@ -70,12 +70,12 @@ function extend_links($content) {
         $attributes = $matches[1];
         $href = $matches[2];
         $rest = $matches[3];
-        $linkText = $matches[4];
+        $link_text = $matches[4];
         
         if (strpos($href, '://') === false) { // Check that the path is local
-            $newHref = str_replace('.md', '.html', $href); // Replace *.md with *.html
-            $newTag = "<a $attributes href=\"$newHref\"$rest>$linkText</a>"; // Create the new <a> tag
-            return $newTag;
+            $new_href = str_replace('.md', '.html', $href); // Replace *.md with *.html
+            $new_tag = "<a $attributes href=\"$new_href\"$rest>$link_text</a>"; // Create the new <a> tag
+            return $new_tag;
         } else {
             return $tag; // do nothing if link is external
         }
@@ -104,14 +104,14 @@ function mail_encode($content) {
 
     // Iterate through each found email address and replace them with the cloaked version
     foreach ($matches[0] as $address) {
-        $content = str_replace($address, generateCloakedEmailLink($address), $content);
+        $content = str_replace($address, generate_cloaked_email_link($address), $content);
     }
 
     return $content;
 }
 
 // Email encoding
-function generateCloakedEmailLink($address) {
+function generate_cloaked_email_link($address) {
 
     // Get user and domain parts of the email address
     $parts = explode("@", $address);
@@ -121,22 +121,22 @@ function generateCloakedEmailLink($address) {
     $fingerprint = md5($address . "mailto" . str_shuffle(implode(range(0, 999)))[0]); // Compute md5 fingerprint
 
     // Generate cloaked email span
-    $userReversed = strrev($user);
-    $domainReversed = strrev($domain);
-    $userChars = str_split($userReversed);
-    $domainChars = str_split($domainReversed);
-    $spanAttributes = 'data-user="' . implode('', $userChars) . '"';
+    $user_reversed = strrev($user);
+    $domain_reversed = strrev($domain);
+    $user_chars = str_split($user_reversed);
+    $domain_chars = str_split($domain_reversed);
+    $span_attributes = 'data-user="' . implode('', $user_chars) . '"';
     if (!empty($domain)) {
-        $spanAttributes .= ' data-domain="' . implode('', $domainChars) . '"';
+        $span_attributes .= ' data-domain="' . implode('', $domain_chars) . '"';
     }
-    $spanElement = '<span class="cloaked-e-mail" ' . $spanAttributes . '></span>';
+    $span_element = '<span class="cloaked-e-mail" ' . $span_attributes . '></span>';
 
     // Generate JavaScript code
-    $scriptCode = <<<EOD
+    $script_code = <<<EOD
 <script id="$fingerprint">
       var scriptTag = document.getElementById("$fingerprint");
       var wblink = document.createElement("a");
-      var address = "$userReversed".split('').reverse().join('') + "@" + "$domainReversed".split('').reverse().join('');
+      var address = "$user_reversed".split('').reverse().join('') + "@" + "$domain_reversed".split('').reverse().join('');
       wblink.href = "mailto:" + address;
       wblink.innerText = address;
       scriptTag.parentElement.insertBefore(wblink, scriptTag.previousElementSibling);
@@ -144,11 +144,11 @@ function generateCloakedEmailLink($address) {
 </script>
 EOD;
 
-    return $spanElement . $scriptCode;
+    return $span_element . $script_code;
 }
 
 // add unique ids to headlines
-function headline_ids($content, $totop) {
+function headline_ids($content, $to_top) {
     // Regex pattern to match headline tags
     $pattern = '/<h([1-6])>(.*?)<\/h\1>/i';
     $headlines = [];
@@ -176,13 +176,13 @@ function headline_ids($content, $totop) {
     };
 
     // Callback function to replace headline tags with IDs
-    $callback = function($matches) use (&$headlines, $generate_id, $totop) {
+    $callback = function($matches) use (&$headlines, $generate_id, $to_top) {
         $level = $matches[1];
         $headline = $matches[2];
         $id = $generate_id($headline);
         $headlines[$id] = $headline;
         $content = '';
-        if (!empty($totop)) $content .= $totop ."\n";
+        if (!empty($to_top)) $content .= $to_top ."\n";
         $content .= "<h{$level} id=\"{$id}\">{$headline}</h{$level}>";
 
         return $content;
