@@ -17,7 +17,7 @@
  Homepage:     https://lowmark.de
  Repository:   https://github.com/weitblick/lowmark
 
- Description:  lowmark core
+ Description:  get markdown file and render it to HTML
 */
 
 $start_time = microtime(true); // start render time
@@ -59,7 +59,7 @@ if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the mark
     if ($lowmark['img_to_figure']) $lowmark['content'] = img_to_figure($lowmark['content']); // add <figure> to <img> tags
     if ($lowmark['extend_links'])  $lowmark['content'] = extend_links($lowmark['content']); // extend <a> tags
     if ($lowmark['mail_encode'])   $lowmark['content'] = mail_encode($lowmark['content']); // mail encoding
-    if ($lowmark['headline_ids']) ['content' => $lowmark['content'], 'headlines' => $lowmark['headlines'],  ] = headline_ids($lowmark['content'], $lowmark['headline_to_top']); // add unique ids to headlines
+    if ($lowmark['headline_ids'])  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // add unique ids to headlines and return an array of headlines
     if ($lowmark['details_patch']) $lowmark['content'] = details_patch($lowmark['content']); // <details> workaround
 
 } else {
