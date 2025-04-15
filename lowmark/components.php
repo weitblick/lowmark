@@ -20,7 +20,7 @@ Repository:   https://github.com/weitblick/lowmark
 Description:  additional features for images, links, mailencoding and <details>
 */
 
-// expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading an alignment
+// expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading and alignment
 function img_to_figure($html) {
     $html = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $html); // Remove enclosing <p> tags if necessary
 
