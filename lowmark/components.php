@@ -1,24 +1,24 @@
 <?php
 /*
+███
+███
+███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
 
+LOWMARK – A Low-tech Markdown Website Generator
 
-	██       ██████  ██     ███    ███  █████  ██████  ██   ██ 
-	██      ██    ██ ██     ████  ████ ██   ██ ██   ██ ██  ██  
-	██      ██    ██ ██  █  ██ ████ ██ ███████ ██████  █████   
-	██      ██    ██ ██ ███ ██  ██  ██ ██   ██ ██   ██ ██  ██  
-	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██ 
-                                                                                                                          
-	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.31 (2025-04-13)
-	https://lowmark.de
-	
-	by Erhard Maria Klein
-	emk@lowmark.de
-	CC BY-NC-SA 4.0
-	
+File:         components.php
+Author:       Erhard Maria Klein <emk@lowmark.de>
+Version:      0.31
+Last updated: 2025-04-15
+License:      CC BY-NC-SA 4.0
+Homepage:     https://lowmark.de
+Repository:   https://github.com/weitblick/lowmark
+
+Description:  additional features for images, anchors, mailencoding and <details>
 */
-
-// ============ LOWMARK COMPONENTS ================
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading an alignment
 function img_to_figure($html) {

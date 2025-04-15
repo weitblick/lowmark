@@ -1,24 +1,24 @@
 <?php
 /*
- *
- *
- *	██       ██████  ██     ███    ███  █████  ██████  ██   ██
- *	██      ██    ██ ██     ████  ████ ██   ██ ██   ██ ██  ██
- *	██      ██    ██ ██  █  ██ ████ ██ ███████ ██████  █████
- *	██      ██    ██ ██ ███ ██  ██  ██ ██   ██ ██   ██ ██  ██
- *	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██
- *
- *	LOWMARK – A Low-tech Markdown Website Generator
- *	Version: 0.4 (2025-04-10)
- *	https://lowmark.de
- *
- *	by Erhard Maria Klein
- *	emk@lowmark.de
- *	CC BY-NC-SA 4.0
- *
- */
+███
+███
+███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
 
-// ============ LOWMARK SIMPLE FRONTMATTER PARSER ================
+LOWMARK – A Low-tech Markdown Website Generator
+
+File:         frontmatter.php
+Author:       Erhard Maria Klein <emk@lowmark.de>
+Version:      0.31
+Last updated: 2025-04-15
+License:      CC BY-NC-SA 4.0
+Homepage:     https://lowmark.de
+Repository:   https://github.com/weitblick/lowmark
+
+Description:  simple frontmatter parser
+*/
 
 function parse_frontmatter($markdown) {
     $frontmatter = []; // Will hold the parsed key-value pairs from the frontmatter
