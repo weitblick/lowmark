@@ -1,16 +1,26 @@
 # lowmark alpha (draft)
 
+```
+ ███
+ ███
+ ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+```
 
-LOWMARK – A Low-tech Markdown Website Generator  
-Version: 0.31 (2025-04-13)  
-https://lowmark.de
-	
-by Erhard Maria Klein  
-emk@lowmark.de  
-CC BY-NC-SA 4.0
-	
+LOWMARK – A Low-tech Markdown Website Generator
+
+Author: Erhard Maria Klein <emk@lowmark.de>
+License: CC BY-NC-SA 4.0
+Homepage: https://lowmark.de
+Repository: https://github.com/weitblick/lowmark
+
+Depends on:  
 Parsedown & ParsedownExtra from https://parsedown.org/  
 highlight.js from https://highlightjs.org/
+
+---
 
 _This is where the documentation is created. So far there are only a few brief notes mainly for editors here._
 
