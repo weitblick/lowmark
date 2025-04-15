@@ -11,9 +11,9 @@
 
 LOWMARK – A Low-tech Markdown Website Generator
 
-Author: Erhard Maria Klein <emk@lowmark.de>
-License: CC BY-NC-SA 4.0
-Homepage: https://lowmark.de
+Author: Erhard Maria Klein <emk@lowmark.de >  
+License: CC BY-NC-SA 4.0  
+Homepage: https://lowmark.de  
 Repository: https://github.com/weitblick/lowmark
 
 Depends on:  
