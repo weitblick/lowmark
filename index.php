@@ -9,10 +9,10 @@
     <meta name="description" content="<?= htmlspecialchars($lowmark['description']) ?>">
 
     <link rel="canonical" href="<?= $lowmark['canonical_url'] ?>">
-    <link rel="apple-touch-icon" sizes="180x180" href="/touch/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/touch/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/touch/favicon-16x16.png">
-    <link rel="manifest" href="/touch/site.manifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/touch/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/touch/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/touch/favicon-16x16.png">
+    <link rel="manifest" href="/assets/touch/site.manifest">
     
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:title" content="<?= htmlspecialchars($lowmark['title']) ?>">
@@ -21,7 +21,7 @@
     <meta property="og:url" content="<?= $lowmark['base_url'] ?>">
     <meta property="og:type" content="website">
     
-    <link href="/css/lowmark_simple.css" rel="stylesheet">
+    <link href="/assets/css/lowmark_simple.css" rel="stylesheet">
     <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' ?>
     <style>
     /* lowmark theme »simple« */
@@ -62,8 +62,8 @@
         }
     }
     </style>
-    <?= ($lowmark ['highlight'] ? '<script defer src="/js/highlight.js" onload="hljs.initHighlightingOnLoad()"></script>' . "\n" : '') ?>
-    <?= ($lowmark ['highlight'] ? '<link href="/css/highlight.css" rel="stylesheet">' . "\n" : '') ?>
+    <?= ($lowmark ['highlight'] ? '<script defer src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad()"></script>' . "\n" : '') ?>
+    <?= ($lowmark ['highlight'] ? '<link href="/assets/css/highlight.css" rel="stylesheet">' . "\n" : '') ?>
 </head>
 
 <body>
