@@ -1,7 +1,6 @@
 ---
 title: Markdown Formatierung
 description: Alle Markdown-Formatierungen, die unterstützt werden sollen.
-highlight: true
 details_patch: true
 ---
 # Markdown Formatierung
