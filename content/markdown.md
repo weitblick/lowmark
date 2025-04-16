@@ -17,7 +17,7 @@ details_patch: true
 
 ![Alt-Text](img/wahrheit.webp "Bildunterschrift optional")
 
-[test](https://www.weitblick.de "title"){.myClass}
+[external link with custom css class](https://lowmark.de "title"){.myClass}
 
 ## Headings
 
