@@ -182,8 +182,7 @@ function headline_ids($content, $to_top) {
         $id = $generate_id($headline);
         $headlines[$id] = $headline;
         $content = '';
-        if (!empty($to_top)) $content .= $to_top ."\n";
-        $content .= "<h{$level} id=\"{$id}\">{$headline}</h{$level}>";
+        $content .= "<h{$level} id=\"{$id}\">{$headline}{$to_top}</h{$level}>";
 
         return $content;
     };

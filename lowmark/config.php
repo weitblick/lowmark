@@ -13,8 +13,8 @@ $lowmark = [
     // Components / features
     'details_patch'       => false, // Enable patch/fix for <details> tag if needed
     'extend_links'        => true,  // Automatically extend links (e.g. with target/rel attributes)
-    'headline_ids'        => true,  // Add automatic IDs to headings <h1>–<h6>
-    'headline_to_top'     => '',    // Add a “back to top” symbol next to headings
+    'headline_ids'        => true,  // Add automatic IDs to headings <h2>–<h6>
+    'headline_to_top'     => '',    // Add a “back to top” symbol next to headings, e.g. <a href="#top" title="to top" style="float: right; text-decoration: none;">↑</a>
     'img_to_figure'       => true,  // Convert <img> to <figure> with caption and alignment
     'mail_encode'         => true,  // Obfuscate email addresses automatically
     'raw_html'            => false  // Don’t render raw HTML in Markdown
