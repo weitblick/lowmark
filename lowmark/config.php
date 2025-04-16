@@ -2,20 +2,23 @@
 // LOWMARK Default Configuration
 
 $lowmark = [
-    'sitename'            => 'lowmark',
-    'description'         => 'Ein Lowtech Markdown Website Generator',
-    'base_url'            => 'https://lowmark.de',
-    'image'               => 'img/wahrheit.webp',
-    'title'               => '- undefined -',
-    'content_dir'         => 'content/',
-    'details_patch'       => false,
-    'extend_links'        => true,
-    'highlight'           => false,
-    'img_to_figure'       => true,
-    'mail_encode'         => true,
-    'raw_html'            => false,
-    'headline_ids'        => true,
-    'headline_to_top'     => ''
+
+    // Main configuration
+    'sitename'            => 'lowmark', // Title of the website
+    'description'         => 'A low-tech Markdown website generator', // Default site description
+    'base_url'            => 'https://lowmark.de', // Base URL (used for canonical url in siteheader)
+    'title'               => '- undefined -', // Default page title (can be set via frontmatter)
+    'content_dir'         => 'content/', // Directory for content files
+
+    // Components / features
+    'details_patch'       => false, // Enable patch/fix for <details> tag if needed
+    'extend_links'        => true,  // Automatically extend links (e.g. with target/rel attributes)
+    'headline_ids'        => true,  // Add automatic IDs to headings <h1>–<h6>
+    'headline_to_top'     => '',    // Add a “back to top” symbol next to headings
+    'img_to_figure'       => true,  // Convert <img> to <figure> with caption and alignment
+    'mail_encode'         => true,  // Obfuscate email addresses automatically
+    'raw_html'            => false  // Don’t render raw HTML in Markdown
 ];
+
 
 ?>
