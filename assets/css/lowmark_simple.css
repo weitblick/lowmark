@@ -1,31 +1,29 @@
-/* LOWMARK css */
-/* Version: 0.15 (2024-06-13) */
+/*
+ ███
+ ███
+ ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
 
-/* Fonts */
-@font-face {
-    font-family: 'Stolzl';
-    src: local('Stolzl Book'), local('Stolzl-Book'),
-        url('../fonts/Stolzl-Book.woff2') format('woff2'),
-        url('../fonts/Stolzl-Book.woff') format('woff'),
-        url('../fonts/Stolzl-Book.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-@font-face {
-    font-family: 'Stolzl';
-    src: local('Stolzl Medium'), local('Stolzl-Medium'),
-        url('../fonts/Stolzl-Medium.woff2') format('woff2'),
-        url('../fonts/Stolzl-Medium.woff') format('woff'),
-        url('../fonts/Stolzl-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
+ LOWMARK – A Low-tech Markdown Website Generator
+
+ File:         lowmark_simple.css
+ Author:       Erhard Maria Klein <emk@lowmark.de>
+ Version:      0.31
+ Last updated: 2025-04-16
+ License:      CC BY-NC-SA 4.0
+ Homepage:     https://lowmark.de
+ Repository:   https://github.com/weitblick/lowmark
+
+ Description:  CSS of default lowmark theme »simple«
+*/
 
 /* Global variables. */
 :root,
 ::-webkit-backdrop {
     /* Set sans-serif & mono fonts */
-    --sans-font: 'Stolzl', system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --sans-font: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --standard-border-radius: 5px;
 

@@ -9,61 +9,11 @@
     <meta name="description" content="<?= htmlspecialchars($lowmark['description']) ?>">
 
     <link rel="canonical" href="<?= $lowmark['canonical_url'] ?>">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/touch/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/touch/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/touch/favicon-16x16.png">
-    <link rel="manifest" href="/assets/touch/site.manifest">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="og:title" content="<?= htmlspecialchars($lowmark['title']) ?>">
-    <meta property="og:description" content="<?= htmlspecialchars($lowmark['description']) ?>">
-    <meta property="og:image" content="<?= $lowmark['base_url'] . '/' . $lowmark['image']  ?>">
-    <meta property="og:url" content="<?= $lowmark['base_url'] ?>">
-    <meta property="og:type" content="website">
-    
+
     <link href="/assets/css/lowmark_simple.css" rel="stylesheet">
-    <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' ?>
-    <style>
-    /* lowmark theme »simple« */
-    /* Use lowmark_simple.css */
-    /* Monochrome color set */
 
-    :root,
-    ::backdrop {
-            /* Colors of default (light) theme */
-            --bg: #fff;
-            --logo-color: #212121;
-            --accent-bg: #f5f5f5;
-            --text: #212121;
-            --text-light: #585858;
-            --border: #898EA4;
-            --accent: var(--text-light);
-            --accent-text: var(--bg);
-            --code: var(--text-light);
-            --preformatted: #444;
-            --marked: #ffdd33;
-            --disabled: #efefef;
-            --accent-hover: var(--text);
-        }
+    <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' // local development: livereload on changes ?>
 
-    /* Colors of dark theme */
-    @media (prefers-color-scheme: dark) {
-        :root,
-        ::backdrop {
-            color-scheme: dark;
-            --bg: #212121;
-            --logo-color: #fff;
-            --accent-bg: #37383e;
-            --text: #dadadb;
-            --text-light: #ababab;
-            --code: var(--text-light);
-            --preformatted: #ccc;
-            --disabled: #111;
-        }
-    }
-    </style>
-    <?= ($lowmark ['highlight'] ? '<script defer src="/assets/js/highlight.js" onload="hljs.initHighlightingOnLoad()"></script>' . "\n" : '') ?>
-    <?= ($lowmark ['highlight'] ? '<link href="/assets/css/highlight.css" rel="stylesheet">' . "\n" : '') ?>
 </head>
 
 <body>
@@ -83,8 +33,7 @@
         </div>
         <nav>
             <a href="/">Home</a>
-            <a href="/toc.html">Inhalt</a>
-            <a href="/about.html">Intro</a>
+            <a href="/markdown.html">Demo</a>
         </nav>
     </header>
     <div class="main">
@@ -93,11 +42,9 @@
         </main>
         <footer>
             <span><a href="/">Home</a></span>
-            <span>| <a href="/toc.html">Inhalt</a></span>
+            <span>| <a href="/markdown.html">Demo</a></span>
             <span>| <a href="/imprint.html">Impressum</a></span>
             <span>| <a href="/privacy.html">Datenschutz</a></span>
-            <span>| <a rel="me" href="https://kirche.social/@emk">Mastodon</a></span>
-            <span>| <a href="<?= $md_file_path ?>" title="this page as markdown source file" rel="nofollow noopener noreferrer">md</a></span>
             <br><span>powered by <a href="https://lowmark.de" target="_blank">Lowmark</a></span>
         </footer>
     </div>

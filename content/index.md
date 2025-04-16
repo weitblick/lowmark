@@ -19,6 +19,3 @@ Unser Ziel ist es, einen leichtgewichtigen Online-Raum zu schaffen, in dem Dokum
 > **lowmark** ist weniger ein Tool, als viel mehr eine innere Einstellung.
 
 
-
-» [Inhalt](/toc.md)  
-» [Einführung](/about.md)
