@@ -17,7 +17,10 @@ $lowmark = [
     'headline_to_top'     => '',    // Add a “back to top” symbol next to headings, e.g. <a href="#top" title="to top" style="float: right; text-decoration: none;">↑</a>
     'img_to_figure'       => true,  // Convert <img> to <figure> with caption and alignment
     'mail_encode'         => true,  // Obfuscate email addresses automatically
-    'raw_html'            => false  // Don’t render raw HTML in Markdown
+    'raw_html'            => false, // Don’t render raw HTML in Markdown
+
+    // Theme
+    'logo'                => '',
 ];
 
 

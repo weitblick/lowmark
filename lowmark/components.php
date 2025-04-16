@@ -1,24 +1,24 @@
 <?php
 /*
-███
-███
-███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
-███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
-███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
-███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
-
-LOWMARK – A Low-tech Markdown Website Generator
-
-File:         components.php
-Author:       Erhard Maria Klein <emk@lowmark.de>
-Version:      0.31
-Last updated: 2025-04-15
-License:      CC BY-NC-SA 4.0
-Homepage:     https://lowmark.de
-Repository:   https://github.com/weitblick/lowmark
-
-Description:  additional features for images, links, mailencoding and <details>
-*/
+ * ███
+ * ███
+ * ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ * ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ * ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ * ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+ *
+ * LOWMARK – A Low-tech Markdown Website Generator
+ *
+ * File:         components.php
+ * Author:       Erhard Maria Klein <emk@lowmark.de>
+ * Version:      0.4
+ * Last updated: 2025-04-16
+ * License:      CC BY-NC-SA 4.0
+ * Homepage:     https://lowmark.de
+ * Repository:   https://github.com/weitblick/lowmark
+ *
+ * Description:  Additional features for images, links, mailencoding and headings
+ */
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading and alignment
 function img_to_figure($html) {
@@ -183,7 +183,6 @@ function headline_ids($content, $to_top) {
         $headlines[$id] = $headline;
         $content = '';
         $content .= "<h{$level} id=\"{$id}\">{$headline}{$to_top}</h{$level}>";
-
         return $content;
     };
 

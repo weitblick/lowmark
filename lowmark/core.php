@@ -1,26 +1,26 @@
 <?php
 /*
- ███
- ███
- ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
- ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
- ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
- ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+ * ███
+ * ███
+ * ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ * ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ * ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ * ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+ *
+ * LOWMARK – A Low-tech Markdown Website Generator
+ *
+ * File:         core.php
+ * Author:       Erhard Maria Klein <emk@lowmark.de>
+ * Version:      0.4
+ * Last updated: 2025-04-14
+ * License:      CC BY-NC-SA 4.0
+ * Homepage:     https://lowmark.de
+ * Repository:   https://github.com/weitblick/lowmark
+ *
+ * Description:  Get markdown file and render it to HTML
+ */
 
- LOWMARK – A Low-tech Markdown Website Generator
-
- File:         core.php
- Author:       Erhard Maria Klein <emk@lowmark.de>
- Version:      0.31
- Last updated: 2025-04-14
- License:      CC BY-NC-SA 4.0
- Homepage:     https://lowmark.de
- Repository:   https://github.com/weitblick/lowmark
-
- Description:  get markdown file and render it to HTML
-*/
-
-$start_time = microtime(true); // start render time
+$start_time = microtime(true); // Start render time
 
 // Includes
 include_once 'lowmark/config.php'; // Default configuration
@@ -50,16 +50,16 @@ if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the mark
     // Convert markdown content to HTML
     $Extra = new ParsedownExtra();
     if (($Extra instanceof ParsedownExtra)&&(!$lowmark['raw_html'])) {
-        $lowmark['content'] = $Extra->text($resource['content']); // markdown parser
+        $lowmark['content'] = $Extra->text($resource['content']); // Markdown parser
     } else {
-        $lowmark['content'] = $resource['content'];
+        $lowmark['content'] = $resource['content']; // Don’t render in markdown
     }
 
     // Extend Markdown with custom functions
-    if ($lowmark['img_to_figure']) $lowmark['content'] = img_to_figure($lowmark['content']); // add <figure> to <img> tags
-    if ($lowmark['extend_links'])  $lowmark['content'] = extend_links($lowmark['content']); // extend <a> tags
-    if ($lowmark['mail_encode'])   $lowmark['content'] = mail_encode($lowmark['content']); // mail encoding
-    if ($lowmark['headline_ids'])  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // add unique ids to headlines and return an array of headlines
+    if ($lowmark['img_to_figure']) $lowmark['content'] = img_to_figure($lowmark['content']); // Add <figure> to <img> tags
+    if ($lowmark['extend_links'])  $lowmark['content'] = extend_links($lowmark['content']); // Extend <a> tags
+    if ($lowmark['mail_encode'])   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
+    if ($lowmark['headline_ids'])  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
     if ($lowmark['details_patch']) $lowmark['content'] = details_patch($lowmark['content']); // <details> workaround
 
 } else {

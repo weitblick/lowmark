@@ -1,26 +1,27 @@
 <?php
 /*
- ███
- ███
- ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
- ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
- ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
- ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
-
- LOWMARK – A Low-tech Markdown Website Generator
-
- File:         router.php
- Author:       Erhard Maria Klein <emk@lowmark.de>
- Version:      0.31
- Last updated: 2025-04-14
- License:      CC BY-NC-SA 4.0
- Homepage:     https://lowmark.de
- Repository:   https://github.com/weitblick/lowmark
-
- Description:  Router for local execution
-               start with: php -S localhost:8000 router.php
-               browse: http://localhost:8000
-*/
+ * ███
+ * ███
+ * ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ * ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ * ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ * ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+ *
+ * LOWMARK – A Low-tech Markdown Website Generator
+ *
+ * File:         router.php
+ * Author:       Erhard Maria Klein <emk@lowmark.de>
+ * Version:      0.4
+ * Last updated: 2025-04-16
+ * License:      CC BY-NC-SA 4.0
+ * Homepage:     https://lowmark.de
+ * Repository:   https://github.com/weitblick/lowmark
+ *
+ * Description:  Router for local development
+ *
+ * Usage:        Start with: php -S localhost:8000 router.php
+ *               Open in browser: http://localhost:8000
+ */
 
 // Error reporting
 error_reporting(E_ALL);

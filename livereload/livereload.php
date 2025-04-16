@@ -1,20 +1,28 @@
 <?php
 /*
-	██       ██████  ██     ███    ███  █████  ██████  ██   ██
-	██      ██    ██ ██     ████  ████ ██   ██ ██   ██ ██  ██
-	██      ██    ██ ██  █  ██ ████ ██ ███████ ██████  █████
-	██      ██    ██ ██ ███ ██  ██  ██ ██   ██ ██   ██ ██  ██
-	███████  ██████   ███ ████      ██ ██   ██ ██   ██ ██   ██
-
-	LOWMARK – A Low-tech Markdown Website Generator
-	Version: 0.3 (2025-03-17)
-	https://lowmark.de
-
-	by Erhard Maria Klein
-	emk@lowmark.de
-	CC BY-NC-SA 4.0
-
-*/
+ * ███
+ * ███
+ * ███    ██████    ██   ██    █████ ████     ██████     ████  ███   ██
+ * ███  ███    ███  ██   ██   ██  ███  ███  ███    ██   ███    ███  ███
+ * ███  ███    ███  ███  ███  ██   ██   ██  ███   ████  ███    ███████
+ * ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
+ *
+ * LOWMARK – A Low-tech Markdown Website Generator
+ *
+ * File:         livereload.php
+ * Author:       Erhard Maria Klein <emk@lowmark.de>
+ * Version:      0.4
+ * Last updated: 2025-04-16
+ * License:      CC BY-NC-SA 4.0
+ * Homepage:     https://lowmark.de
+ * Repository:   https://github.com/weitblick/lowmark
+ *
+ * Description:  Automatically reloads the site when a content file changes
+ *               (for local development only).
+ *
+ * Usage:        Start with: php -S localhost:8000 router.php
+ *               Open in browser: http://localhost:8000
+ */
 
 // ============ LOWMARK WATCH FOR LIVERELOAD ================
 
