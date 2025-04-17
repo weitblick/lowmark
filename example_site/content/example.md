@@ -1,11 +1,11 @@
 ---
-title: Markdown Formatierung
-description: Alle Markdown-Formatierungen, die unterstützt werden sollen.
+title: Example Page
+description: A short lead description about this content page
 details_patch: true
 ---
-# Markdown Formatierung
+# Example Page
 
-<!-- DETAILS Inhalt -->
+<!-- DETAILS Table of contents -->
 
 - [Headings](#headings)
 - [Paragraph](#paragraph)
@@ -15,9 +15,7 @@ details_patch: true
 
 <!-- /DETAILS -->
 
-![Alt-Text](img/wahrheit.webp "Bildunterschrift optional")
-
-[external link with custom css class](https://lowmark.de "title"){.myClass}
+![Alt-Text](img/wahrheit.webp "caption optional")
 
 ## Headings
 
@@ -32,13 +30,13 @@ The following HTML `<h1>`—`<h6>` elements represent six levels of section head
 
 ## Paragraph
 
-![:left Alt-Text](img/wahrheit.webp "Bildunterschrift optional")
+![:left Alt-Text](img/wahrheit.webp "left-aligned, caption optional")
 
 Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat: lowtechcms@commensales.de.
+Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat: obfuscate@email.com.
 
-Trennlinie (hr):
+Horizontal ruler `<hr />`:
 
 ---
 
@@ -148,3 +146,5 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd>CTRL+ALT+Delete</kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+[external link with custom css class](https://lowmark.de "title"){.myClass}

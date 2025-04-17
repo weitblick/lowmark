@@ -25,7 +25,7 @@
         </div>
         <nav>
             <a href="/">Home</a>
-            <a href="/markdown.html">Demo</a>
+            <a href="/example.html">Example Page</a>
         </nav>
     </header>
     <div class="main">
@@ -34,7 +34,7 @@
         </main>
         <footer>
             <span><a href="/">Home</a></span>
-            <span>| <a href="/markdown.html">Demo</a></span>
+            <span>| <a href="/example.html">Example Page</a></span>
             <span>| <a href="/legal.html">Legal Notice</a></span>
             <span>| <a href="/privacy.html">Privacy Policy</a></span>
             <br><span>powered by <a href="https://lowmark.de" target="_blank">lowmark</a></span>

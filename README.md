@@ -14,6 +14,7 @@
 Version: 0.4  
 Last updated: 2025-04-16  
 Homepage: https://lowmark.de  
+Demo Site: https://demo.lowmark.de
 Repository: https://github.com/weitblick/lowmark
 
 Copyright (c) 2025 Erhard Maria Klein, lowmark.de  
