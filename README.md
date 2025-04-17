@@ -81,16 +81,16 @@ git clone git clone https://github.com/weitblick/lowmark.git
 
 ## Local Preview Server
 
-1. **Install PHP**
+1. **Install PHP**  
     PHP version 8.0 or higher is required.
 
-2. **Start the server**
-    In the project root folder, run:
+2. **Start the server ** 
+   In the project root folder, run:
 
    ```bash
    php -S localhost:8000 router.php
    ```
 
-3. **Preview your site**
-    Open your browser and navigate to:
-    http://localhost:8000
+3. **Preview your site**  
+   Open your browser and navigate to:
+   http://localhost:8000
