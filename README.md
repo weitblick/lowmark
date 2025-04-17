@@ -12,12 +12,12 @@
 **LOWMARK – A Low-tech Markdown Website Generator**
 
 Version: 0.4  
-Last updated: 2025-04-16
-Homepage: https://lowmark.de
+Last updated: 2025-04-16  
+Homepage: https://lowmark.de  
 Repository: https://github.com/weitblick/lowmark
 
-Copyright (c) 2025 Erhard Maria Klein, lowmark.de
-Licensed under the MIT License
+Copyright (c) 2025 Erhard Maria Klein, lowmark.de  
+Licensed under the MIT License  
 See LICENSE file or https://opensource.org/licenses/MIT
 
 Depends on: Parsedown & ParsedownExtra from https://parsedown.org/
