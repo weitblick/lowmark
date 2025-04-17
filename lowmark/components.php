@@ -10,14 +10,16 @@
  * LOWMARK – A Low-tech Markdown Website Generator
  *
  * File:         components.php
- * Author:       Erhard Maria Klein <emk@lowmark.de>
  * Version:      0.4
  * Last updated: 2025-04-16
- * License:      CC BY-NC-SA 4.0
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
  * Description:  Additional features for images, links, mailencoding and headings
+ *
+ * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
+ * Licensed under the MIT License
+ * See LICENSE file or https://opensource.org/licenses/MIT
  */
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading and alignment

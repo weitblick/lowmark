@@ -1,6 +1,6 @@
 <?php include_once 'lowmark/core.php'; ?>
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
     <!-- render time: <?= $execution_time ?> milliseconds -->
     <title><?= (!$lowmark['home'] ? $lowmark['title'] . " | " : '') . $lowmark['sitename'] ?></title>

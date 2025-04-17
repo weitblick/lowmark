@@ -10,14 +10,16 @@
  * LOWMARK – A Low-tech Markdown Website Generator
  *
  * File:         core.php
- * Author:       Erhard Maria Klein <emk@lowmark.de>
  * Version:      0.4
  * Last updated: 2025-04-14
- * License:      CC BY-NC-SA 4.0
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
  * Description:  Get markdown file and render it to HTML
+ *
+ * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
+ * Licensed under the MIT License
+ * See LICENSE file or https://opensource.org/licenses/MIT
  *
  * Depends on:   Parsedown & ParsedownExtra from https://parsedown.org/
  */

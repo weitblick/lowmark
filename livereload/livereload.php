@@ -10,10 +10,8 @@
  * LOWMARK – A Low-tech Markdown Website Generator
  *
  * File:         livereload.php
- * Author:       Erhard Maria Klein <emk@lowmark.de>
  * Version:      0.4
  * Last updated: 2025-04-16
- * License:      CC BY-NC-SA 4.0
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
@@ -22,6 +20,10 @@
  *
  * Usage:        Start with: php -S localhost:8000 router.php
  *               Open in browser: http://localhost:8000
+ *
+ * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
+ * Licensed under the MIT License
+ * See LICENSE file or https://opensource.org/licenses/MIT
  */
 
 // ============ LOWMARK WATCH FOR LIVERELOAD ================

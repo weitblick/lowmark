@@ -11,13 +11,14 @@
 
 **LOWMARK – A Low-tech Markdown Website Generator**
 
-Author: Erhard Maria Klein <emk@lowmark.de >  
-License: CC BY-NC-SA 4.0  
-Homepage: https://lowmark.de  
+Version: 0.4  
+Last updated: 2025-04-16
+Homepage: https://lowmark.de
 Repository: https://github.com/weitblick/lowmark
 
-Version: 0.4  
-Last updated: 2025-04-17
+Copyright (c) 2025 Erhard Maria Klein, lowmark.de
+Licensed under the MIT License
+See LICENSE file or https://opensource.org/licenses/MIT
 
 Depends on: Parsedown & ParsedownExtra from https://parsedown.org/
 
@@ -45,29 +46,58 @@ Learn more about the philosophy behind Lowmark → [lowmark.de/about.html](https
 
 ### 1. Download the repository
 
-**Option A: Clone via Git**
+#### Option A: Clone via Git
 
 ```bash
 git clone git clone https://github.com/weitblick/lowmark.git
 ```
 
-**Option B: Download ZIP archive**
+#### Option B: Download ZIP archive
 
-1. **Option B: Download ZIP archive**
-   1. Click on **"Code" → "Download ZIP"**
-   2. Extract the archive to a folder of your choice
+1. Click on **"Code" → "Download ZIP"**
+2. Extract the archive to a folder of your choice
 
 > ⚠️ Make sure you're using the contents of the `main` branch.
 
 ### 2. Set up your project folder
 
- Copy the contents of the `example_site` folder into the project root directory.
- Then delete the `example_site` folder.
+Copy the contents of the `example_site` folder into the project root directory.  
+Ensure that the `config.php` file is placed in the `lowmark` subfolder where the core scripts are located.
+Then delete the `example_site` folder.
 
 ### 3. Deploy your site
 
 - Upload all files to a web server, **or**
 - Use the built-in PHP development server (see below for local preview).
+
+---
+
+Klar! Hier ist dein Verzeichnisbaum im sauberen Markdown-Format, gut lesbar für ein GitHub-README:
+
+Du kannst diesen Abschnitt z. B. als „Project Structure“ oder „Directory Overview“ einfügen:
+
+------
+
+## Project Structure
+
+```
+assets/               → CSS, images, and other static assets
+content/              → Page content in Markdown format
+  └── index.md        → Homepage
+
+livereload/           → Scripts for the local preview mode (optional)
+lowmark/              → Core logic of the site generator
+  ├── components.php      → Additional features
+  ├── config.php          → Base configuration (must be customized!)
+  ├── core.php            → Get markdown file and render it to HTML
+  ├── frontmatter.php     → Frontmatter parser
+  ├── Parsedown.php       → Markdown parser
+  └── ParsedownExtra.php  → Extended Markdown support
+
+.htaccess            → URL rewriting for Apache servers
+index.php            → Main template file; initializes lowmark by calling core.php
+router.php           → Entry point for the local PHP preview server (optional)
+```
 
 ---
 
