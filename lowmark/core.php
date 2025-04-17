@@ -18,6 +18,8 @@
  * Repository:   https://github.com/weitblick/lowmark
  *
  * Description:  Get markdown file and render it to HTML
+ *
+ * Depends on:   Parsedown & ParsedownExtra from https://parsedown.org/
  */
 
 $start_time = microtime(true); // Start render time
