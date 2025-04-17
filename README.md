@@ -19,8 +19,7 @@ Repository: https://github.com/weitblick/lowmark
 Version: 0.4  
 Last updated: 2025-04-17
 
-Depends on:  
-Parsedown & ParsedownExtra from https://parsedown.org/
+Depends on: Parsedown & ParsedownExtra from https://parsedown.org/
 
 ---
 
