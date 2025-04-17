@@ -4,7 +4,9 @@ description: A Low-tech Markdown Website Generator
 ---
 # lowmark
 
-### Create websites with ease – using just Markdown.
+### – A Low-tech Markdown Website Generator
+
+Create websites with ease – using just Markdown.
 
 - Write and publish your content as simple Markdown files
 - This “CMS” is technically just a small PHP script
