@@ -72,12 +72,6 @@ Then delete the `example_site` folder.
 
 ---
 
-Klar! Hier ist dein Verzeichnisbaum im sauberen Markdown-Format, gut lesbar für ein GitHub-README:
-
-Du kannst diesen Abschnitt z. B. als „Project Structure“ oder „Directory Overview“ einfügen:
-
-------
-
 ## Project Structure
 
 ```
