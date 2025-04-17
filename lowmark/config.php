@@ -4,9 +4,9 @@
 $lowmark = [
 
     // Main configuration
-    'sitename'            => 'lowmark', // Title of the website
-    'description'         => 'A low-tech Markdown website generator', // Default site description
-    'base_url'            => 'https://lowmark.de', // Base URL (used for canonical url in siteheader)
+    'sitename'            => 'lowmark simple theme', // Title of the website
+    'description'         => 'the default theme of lowmark – a lowtech markdown website generator', // Default site description
+    'base_url'            => 'https://demo.lowmark.de', // Base URL (used for canonical url in siteheader)
     'title'               => '- undefined -', // Default page title (can be set via frontmatter)
     'content_dir'         => 'content/', // Directory for content files
 
