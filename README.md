@@ -82,9 +82,9 @@ git clone git clone https://github.com/weitblick/lowmark.git
 ## Local Preview Server
 
 1. **Install PHP**  
-    PHP version 8.0 or higher is required.
+   PHP version 8.0 or higher is required.
 
-2. **Start the server ** 
+2. **Start the server**  
    In the project root folder, run:
 
    ```bash
