@@ -1,4 +1,4 @@
-# lowmark alpha (draft)
+# lowmark
 
 ```
  ███
@@ -9,12 +9,15 @@
  ███    ██████     ████ █████    ██   ██   ██████ ██  ███    ███   ██
 ```
 
-LOWMARK – A Low-tech Markdown Website Generator
+**LOWMARK – A Low-tech Markdown Website Generator**
 
 Author: Erhard Maria Klein <emk@lowmark.de >  
 License: CC BY-NC-SA 4.0  
 Homepage: https://lowmark.de  
 Repository: https://github.com/weitblick/lowmark
+
+Version: 0.4  
+Last updated: 2025-04-17
 
 Depends on:  
 Parsedown & ParsedownExtra from https://parsedown.org/  
@@ -22,121 +25,74 @@ highlight.js from https://highlightjs.org/
 
 ---
 
-_This is where the documentation is created. So far there are only a few brief notes mainly for editors here._
+## What is lowmark?
 
+**Create websites with ease – using just Markdown.**
 
-## Frontmatter
+- Write and publish your content as simple Markdown files
+- This “CMS” is technically just a small PHP script
+- No technical skills required – installation and usage take just a few minutes
+- The core innovation is its radical simplicity, putting content back at the center
+- Inspired by the ideals of the [Lowtech](https://solar.lowtechmagazine.com/), [Slow Media](https://www.slow-media.net/manifest) and [Small Web](https://smallweb.page/home) movements
 
+Our goal is to create a lightweight online space where documents are simply documents — respecting the privacy, attention, and cognitive capacity of every reader, and promoting both mental and ecological sustainability.
 
-* in simplified(!) yaml format (---)
-* supported attrributes: see config.php
-* Integrate your own extensions in the template:  
+> **Lowmark** isn’t about tech – it’s about values.
 
-  `<?= $lowmark['key'] ?? '' ?>`
+Learn more about the philosophy behind Lowmark → [lowmark.de/about.html](https://lowmark.de/about.html)
 
-## “Assets”
-
-* Images and download files are located in the content directory. Subdirectories can be created.
-* .htaccess contains a rule as to which file extensions are taken into account and then rewrites access to these files so that they are loaded from the content directory. This allows embedded images and downloads to work locally and on the web server.
-* IMPORTANT: The paths must be relative.
-* Images need a maximum width of 720px in the standard theme.
-
-## Links
-
-* Internal links can also point to the .md files. This means that they are also consistent offline. They are rewritten to .html by the CMS.
-* External links are automatically extended by a target="_blank".
-* URLs that are written out are automatically linked.
-* mailencode = true controls that unlinked e-mail addresses are automatically linked and encrypted.  
-  ATTENTION: This means that e-mail addresses must not be linked in the Markdown file. You can also switch this on and off individually per page via the frontmatter.
-
-## extended Markdown
-
-### HTML
-
-* The Markdown interpreter is transparent for HTML code
-
-### Table of contents or “accordion”
-
-- corresponds to the HTML tag `<details>`
-
-```
-<!-- DETAILS content -->
-
-- Headings](#headings)
-- Paragraph](#paragraph)
-- Blockquotes](#blockquotes)
-- Tables](#tables)
-- ...
-
-<!-- /DETAILS -->
-```
-
-
-### Anchor
-
-Jump targets can be attached to headings according to this scheme:
-
-```
-## Heading{#anchor}
-```
-
-
-### Classes
-
-```
-[this is a link](#){.yourClass}
-
-#### this is a heading{.yourClass}
-```
-
-
-### Images
-
-* :left/right/center at the beginning of the alt text aligns the image
-* title is also interpreted as a caption (figcaption)
-
-```
-[:left Alt-Text](/images/img.webp "caption")
-```
-
-## Syntax highlighting
-
-* Frontmatter: `highlight: true`
-* highlight.js and highlight.css from from https://highlightjs.org/ are included
-
-
-## Favicon
-
-* The name of the website must be adapted in `touch/site.webmanifest`.
-* The favicons are located in the `touch/` directory and can be created with https://favicon.io/favicon-generator/.
-* favicon.ico is located in the web server root directory
+---
 
 ## Installation
 
+### 1. Download the repository
 
-* Copy files to server root directory
-* Download Parsedown.php (https://github.com/erusev/parsedown) and ParsedownExtra.php (https://github.com/erusev/parsedown-extra) to lib folder
-* Customize index.php
-  * basics
-  * Navigation and footer if necessary
-* customize touch/site.webmanifest (title)!
-* customize favicons
+**Option A: Clone via Git**
 
-### Installation in subfolder
+```bash
+git clone git clone https://github.com/weitblick/lowmark.git
+```
 
-(e.g. “sub”)
+**Option B: Download ZIP archive**
 
-* Important! All links relative to the base - i.e. without leading slash
-* add `<base href="https://meine-domain.de/sub/">` to index.php (also applies to editor.php)
-* Adapt .htaccess:
-  * RewriteBase /sub/
-  * put /sub/ in front in all RewriteRules
-  * the .htaccess file (of course) goes into the subfolder “sub”!
-* image paths in the front matter (or $image in the template must begin with a slash and therefore be called “/sub/img/...”)
-* Links to jump targets within the same page must contain the file name of the page (because of the base) - e.g. “index.html#anchor” instead of “#anchor”.
+1. **Option B: Download ZIP archive**
+   1. Click on **"Code" → "Download ZIP"**
+   2. Extract the archive to a folder of your choice
 
-## local preview server
+> ⚠️ Make sure you're using the contents of the `main` branch.
 
-- install php (>= 7.0)
-- call in project root folder: `php -S localhost:8000 router.php`
-- browse http://localhost:8000
+### 2. Set up your project folder
+
+ Copy the contents of the `example_site` folder into the project root directory.
+ Then delete the `example_site` folder.
+
+### 3. Deploy your site
+
+- Upload all files to a web server, **or**
+- Use the built-in PHP development server (see below for local preview).
+
+---
+
+## System Requirements
+
+- **Webserver**: Apache
+- **PHP**: Version **8.0** or higher
+  - PHP extensions: `GD` or `Imagick` for image scaling (optional but recommended)
+
+------
+
+## Local Preview Server
+
+1. **Install PHP**
+    PHP version 8.0 or higher is required.
+
+2. **Start the server**
+    In the project root folder, run:
+
+   ```bash
+   php -S localhost:8000 router.php
+   ```
+
+3. **Preview your site**
+    Open your browser and navigate to:
+    http://localhost:8000
