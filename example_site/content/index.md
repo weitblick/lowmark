@@ -1,6 +1,6 @@
 ---
-title: lowmark
-description: A Low-tech Markdown Website Generator
+title: lowmark simple theme
+description: the default theme of lowmark – a lowtech markdown website generator
 ---
 # lowmark
 
