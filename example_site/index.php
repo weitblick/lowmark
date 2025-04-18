@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <!-- render time: <?= $execution_time ?> milliseconds -->
-    <title><?= (!$lowmark['home'] ? $lowmark['title'] . " | " : '') . $lowmark['sitename'] ?></title>
+    <title><?= (!$lowmark['home'] ? $lowmark['title'] . " | " : '') . ($lowmark['sitename'] ?? 'Missing Site Name') ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?= htmlspecialchars($lowmark['description']) ?>">
