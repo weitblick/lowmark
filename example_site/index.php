@@ -12,7 +12,7 @@
 
     <link href="/assets/css/lowmark_simple.css" rel="stylesheet">
 
-    <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/livereload/livereload.js" data-no-instant defer></script>' // local development: livereload on changes ?>
+    <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/local/livereload.js" data-no-instant defer></script>' // local development: livereload on changes ?>
 
 </head>
 

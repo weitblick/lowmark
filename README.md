@@ -80,8 +80,12 @@ assets/               → CSS, images, and other static assets
 content/              → Page content in Markdown format
   └── index.md        → Homepage
 
-livereload/           → Scripts for the local preview mode (optional)
-lowmark/              → Core logic of the site generator
+local/                → Scripts for the local preview mode (optional)
+  ├── livereload.js   → reload on change
+  ├── livereload.php  → get filetime and return it to livereload.js
+  └── router.php      → Entry point for the local PHP preview server
+  
+lowmark/                  → Core logic of the site generator
   ├── components.php      → Additional features
   ├── config.php          → Base configuration (must be customized!)
   ├── core.php            → Get markdown file and render it to HTML
@@ -89,9 +93,9 @@ lowmark/              → Core logic of the site generator
   ├── Parsedown.php       → Markdown parser
   └── ParsedownExtra.php  → Extended Markdown support
 
-.htaccess            → URL rewriting for Apache servers
-index.php            → Main template file; initializes lowmark by calling core.php
-router.php           → Entry point for the local PHP preview server (optional)
+.htaccess             → URL rewriting for Apache servers
+index.php             → Main template file; initializes lowmark by calling core.php
+
 ```
 
 ---
@@ -106,21 +110,34 @@ router.php           → Entry point for the local PHP preview server (optional)
 
 ## Local Preview Server
 
+To enable this feature, make sure the files in the `local/` directory are present.
+
 1. **Install PHP**  
-   PHP version 8.0 or higher is required.
+   PHP version 8.0 or higher must be installed **locally** if it's not already available.
 
 2. **Start the server**  
    In the project root folder, run:
 
    ```bash
-   php -S localhost:8000 router.php
+   php -S localhost:8000 local/router.php
    ```
 
 3. **Preview your site**  
    Open your browser and navigate to:
    http://localhost:8000
 
-------
+### Auto-Reload on Changes
+
+Lowmark can automatically reload the page when **content `.md` files** are changed during local editing.  
+The following line is required in the `<head>` section of your template `index.php`:
+
+```
+<?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/local/livereload.js" data-no-instant defer></script>' ?>
+```
+
+This will only activate livereload when running locally.
+
+---
 
 ## Upgrading
 

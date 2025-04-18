@@ -17,7 +17,7 @@
  *
  * Description:  Router for local development
  *
- * Usage:        Start with: php -S localhost:8000 router.php
+ * Usage:        Start with: php -S localhost:8000 local/router.php
  *               Open in browser: http://localhost:8000
  *
  * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
@@ -28,6 +28,16 @@
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// root directory of the project (parent of /local/)
+$root = dirname(__DIR__);
+$content_dir = 'content/'; // Fallback if lowmark/config.php is missing
+
+// Get configuration
+if (file_exists($root . '/lowmark/config.php')) {
+    include_once $root . '/lowmark/config.php';
+    if (isset($lowmark['content_dir'])) $content_dir = $lowmark['content_dir'];
+}
 
 // write local error log to lowmark/php_errors.log
 // ini_set('log_errors', 1);
@@ -42,15 +52,17 @@ if (preg_match('#(.+)/$#', $request)) {
 }
 
 // If a file or directory exists, deliver directly
-if (file_exists(__DIR__ . $request)) {
+if (file_exists($root . $request)) {
     return false;
 }
 
 // Rewrite requests for non-existing files
 // to /content/, but avoid recursion and
 // ignore .html
-if (!preg_match('#\.html$#', $request) && !preg_match('#^/content/#', $request)) {
-    $content_path = __DIR__ . '/content' . $request;
+
+$content_dir = trim($content_dir, '/');
+if (!preg_match('#\.html$#', $request) && !preg_match("#^/{$content_dir}/#", $request)) {
+    $content_path = $root . '/' . $content_dir . $request;
     if (file_exists($content_path)) {
         header('Content-Type: ' . mime_content_type($content_path));
         readfile($content_path);
@@ -60,4 +72,4 @@ if (!preg_match('#\.html$#', $request) && !preg_match('#^/content/#', $request))
 
 // The LOWMARK part
 $_GET['q'] = ltrim($request, '/');
-include 'index.php';
+include $root . '/index.php';

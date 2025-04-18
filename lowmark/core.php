@@ -30,9 +30,7 @@ $start_time = microtime(true); // Start render time
 if (file_exists('lowmark/config.php')) {
     include_once 'lowmark/config.php';
 } else {
-    $lowmark = [
-        'content_dir' => 'content/' // Fallback if lowmark/config.php is missing
-    ];
+    $lowmark['content_dir'] = 'content/'; // Fallback if lowmark/config.php is missing
 }
 
 // Includes

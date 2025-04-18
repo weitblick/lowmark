@@ -11,15 +11,11 @@
  *
  * File:         livereload.php
  * Version:      0.4
- * Last updated: 2025-04-16
+ * Last updated: 2025-04-18
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
- * Description:  Automatically reloads the site when a content file changes
- *               (for local development only).
- *
- * Usage:        Start with: php -S localhost:8000 router.php
- *               Open in browser: http://localhost:8000
+ * Description:  get filetime and return it to livereload.js
  *
  * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
  * Licensed under the MIT License

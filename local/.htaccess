@@ -1,4 +1,4 @@
-# deny access to _all_ files in lib/
+# deny access to _all_ files in local/
 # line below if for Apache 2.4
 <ifModule mod_authz_core.c>
     Require all denied

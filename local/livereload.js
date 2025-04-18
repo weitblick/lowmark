@@ -3,7 +3,7 @@
 
 	async function checkForChanges() {
 		try {
-			const response = await fetch("/livereload/livereload.php?q=" + page);
+			const response = await fetch("/local/livereload.php?q=" + page);
 			const newTimestamp = await response.text();
 
 			if (lastModified && lastModified !== newTimestamp) {
