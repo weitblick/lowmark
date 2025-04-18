@@ -26,10 +26,6 @@
 
 $start_time = microtime(true); // Start render time
 
-$lowmark = array(); // Holds environment and page-specific data
-
-// Includes
-
 // Get configuration
 if (file_exists('lowmark/config.php')) {
     include_once 'lowmark/config.php';
@@ -37,10 +33,11 @@ if (file_exists('lowmark/config.php')) {
     // Fallback if lowmark/config.php is missing
     $lowmark = [
         'content_dir' => 'content/', // Directory for content files (with trailing slash)
-        'sitename'    =>  'missing site name'
+        'sitename'    =>  'Missing site name'
     ];
 }
 
+// Includes
 include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown
