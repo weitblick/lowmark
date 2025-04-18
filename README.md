@@ -127,4 +127,7 @@ router.php           → Entry point for the local PHP preview server (optional)
 1. Download the latest version of lowmark (see step one of [Installation](#installation)) and unzip it into a separate directory.
 2. Delete the `example_site` folder from the downloaded package.
 3. Copy the contents of the new version **into your existing installation directory**, making sure to **merge** folders and **only overwrite existing files**. Do **not** *delete* any directories or files during this step.
-4. This way, your existing configuration (`config.php`), content ( `content/`) and template (`assets/`, `index.php`) will remain untouched.
+
+This way, your existing configuration (`config.php`), content ( `content/`) and template (`assets/`, `index.php`) will remain untouched.
+
+> ⚠️ If you have made individual modifications (e.g. to `.htaccess` or other files), **back them up** or **remove them from the new package** before merging to avoid overwriting them. **Always make a full backup** of your site before performing an upgrade!
