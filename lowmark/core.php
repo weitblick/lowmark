@@ -26,8 +26,21 @@
 
 $start_time = microtime(true); // Start render time
 
+$lowmark = array(); // Holds environment and page-specific data
+
 // Includes
-include_once 'lowmark/config.php'; // Default configuration
+
+// Get configuration
+if (file_exists('lowmark/config.php')) {
+    include_once 'lowmark/config.php';
+} else {
+    // Fallback if lowmark/config.php is missing
+    $lowmark = [
+        'content_dir' => 'content/', // Directory for content files (with trailing slash)
+        'sitename'    =>  'missing site name'
+    ];
+}
+
 include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown
@@ -53,18 +66,18 @@ if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the mark
 
     // Convert markdown content to HTML
     $Extra = new ParsedownExtra();
-    if (($Extra instanceof ParsedownExtra)&&(!$lowmark['raw_html'])) {
+    if (($Extra instanceof ParsedownExtra)&&(!($lowmark['raw_html'] ?? false))) {
         $lowmark['content'] = $Extra->text($resource['content']); // Markdown parser
     } else {
         $lowmark['content'] = $resource['content']; // Don’t render in markdown
     }
 
     // Extend Markdown with custom functions
-    if ($lowmark['img_to_figure']) $lowmark['content'] = img_to_figure($lowmark['content']); // Add <figure> to <img> tags
-    if ($lowmark['extend_links'])  $lowmark['content'] = extend_links($lowmark['content']); // Extend <a> tags
-    if ($lowmark['mail_encode'])   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
-    if ($lowmark['headline_ids'])  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
-    if ($lowmark['details_patch']) $lowmark['content'] = details_patch($lowmark['content']); // <details> workaround
+    if ($lowmark['img_to_figure']  ?? false) $lowmark['content'] = img_to_figure($lowmark['content']); // Add <figure> to <img> tags
+    if ($lowmark['extend_links']  ?? false)  $lowmark['content'] = extend_links($lowmark['content']); // Extend <a> tags
+    if ($lowmark['mail_encode']  ?? false)   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
+    if ($lowmark['headline_ids']  ?? false)  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
+    if ($lowmark['details_patch']  ?? false) $lowmark['content'] = details_patch($lowmark['content']); // <details> workaround
 
 } else {
     // If the file does not exist, issue a 404 error

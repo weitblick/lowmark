@@ -8,7 +8,7 @@ $lowmark = [
     'description'         => 'the default theme of lowmark – a lowtech markdown website generator', // Default site description
     'base_url'            => 'https://demo.lowmark.de', // Base URL (used for canonical url in siteheader)
     'title'               => '- undefined -', // Default page title (can be set via frontmatter)
-    'content_dir'         => 'content/', // Directory for content files
+    'content_dir'         => 'content/', // Directory for content files (with trailing slash)
 
     // Components / features
     'details_patch'       => false, // Enable patch/fix for <details> tag if needed
