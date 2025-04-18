@@ -69,7 +69,7 @@ Then delete the `example_site` folder.
 ### 3. Deploy your site
 
 - Upload all files to a web server, **or**
-- Use the built-in PHP development server (see below for local preview).
+- Use the built-in PHP development server ([see below](#local-preview-server) for local preview).
 
 ---
 
