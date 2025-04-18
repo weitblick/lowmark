@@ -62,9 +62,9 @@ git clone git clone https://github.com/weitblick/lowmark.git
 
 ### 2. Set up your project folder
 
-Copy the contents of the `example_site` folder into the project root directory.  
+Copy the contents of the `example_site/` folder into the project root directory.  
 Ensure that the `config.php` file is placed in the `lowmark` subfolder where the core scripts are located.
-Then delete the `example_site` folder.
+Then delete the `example_site/` folder.
 
 ### 3. Deploy your site
 
