@@ -27,7 +27,7 @@
 $start_time = microtime(true); // Start render time
 
 // Includes
-if (file_exists('lowmark/config.php')) include_once 'lowmark/config.php'; // Get configuration (fault-tolerant)
+if (file_exists('config.php')) include_once 'config.php'; // Get configuration (fault-tolerant)
 include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown

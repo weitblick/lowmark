@@ -63,8 +63,7 @@ git clone git clone https://github.com/weitblick/lowmark.git
 ### 2. Set up your project folder
 
 Copy the contents of the `example_site/` folder into the project root directory.  
-Ensure that the `config.php` file is placed in the `lowmark` subfolder where the core scripts are located.
-Then delete the `example_site/` folder.
+Delete the `example_site/` folder and customize the `config.php` file.
 
 ### 3. Deploy your site
 
@@ -87,13 +86,13 @@ local/                → Scripts for the local preview mode (optional)
   
 lowmark/                  → Core logic of the site generator
   ├── components.php      → Additional features
-  ├── config.php          → Base configuration (must be customized!)
   ├── core.php            → Get markdown file and render it to HTML
   ├── frontmatter.php     → Frontmatter parser
   ├── Parsedown.php       → Markdown parser
   └── ParsedownExtra.php  → Extended Markdown support
 
 .htaccess             → URL rewriting for Apache servers
+config.php            → Base configuration (must be customized!)
 index.php             → Main template file; initializes lowmark by calling core.php
 
 ```
@@ -147,4 +146,6 @@ This will only activate livereload when running locally.
 
 This way, your existing configuration (`config.php`), content ( `content/`) and template (`assets/`, `index.php`) will remain untouched.
 
-> ⚠️ If you have made individual modifications (e.g. to `.htaccess` or other files), **back them up** or **remove them from the new package** before merging to avoid overwriting them. **Always make a full backup** of your site before performing an upgrade!
+> ⚠️ If you have made custom changes to core parts of Lowmark (e.g. `.htaccess` or other internal files), make sure to **back them up** or **exclude them from the update package** before merging.
+>
+> To prevent accidental overwrites, always create a **full backup** of your site before upgrading!
