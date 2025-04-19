@@ -25,6 +25,7 @@
  */
 
 $start_time = microtime(true); // Start render time
+define('LOWMARK_RUNNING', true);
 
 // Includes
 if (file_exists('config.php')) include_once 'config.php'; // Get configuration (fault-tolerant)

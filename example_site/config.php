@@ -1,6 +1,8 @@
 <?php
 // LOWMARK Default Configuration
 
+defined('LOWMARK_RUNNING') or (http_response_code(404) && exit('Not found.')); // Prevent direct access to this file
+
 $lowmark = [
 
     // Main configuration
