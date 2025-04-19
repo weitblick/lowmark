@@ -25,7 +25,7 @@
  */
 
 $start_time = microtime(true); // Start render time
-define('LOWMARK_RUNNING', true);
+define('LOWMARK_RUNNING', true); // Mark the application as running to prevent direct access of config.php
 
 // Includes
 if (file_exists('config.php')) include_once 'config.php'; // Get configuration (fault-tolerant)
