@@ -26,14 +26,8 @@
 
 $start_time = microtime(true); // Start render time
 
-// Get configuration
-if (file_exists('lowmark/config.php')) {
-    include_once 'lowmark/config.php';
-} else {
-    $lowmark['content_dir'] = 'content/'; // Fallback if lowmark/config.php is missing
-}
-
 // Includes
+if (file_exists('lowmark/config.php')) include_once 'lowmark/config.php'; // Get configuration (fault-tolerant)
 include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown
@@ -47,7 +41,7 @@ $path = ltrim($path, '/');
 
 $converted_path = preg_replace('/\.html$/', '.md', $path); // Change .html into .md
 $lowmark['home'] = ($converted_path == 'index.md'); // Identify the homepage
-$md_file_path = $lowmark['content_dir'] . $converted_path; // Path to markdown file in content directory
+$md_file_path = 'content/' . $converted_path; // Path to markdown file in content directory
 
 if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the markdown file exists
     $markdown = file_get_contents($md_file_path); // Read the content of the markdown file
@@ -79,10 +73,16 @@ if (file_exists($md_file_path) && is_file($md_file_path)) { // Check if the mark
     $lowmark['content'] = "<h3>Error 404: Not Found</h3><p>Source: $converted_path</p>";
 }
 
-// set base url and canonical url
-$lowmark['base_url'] ??= (($_SERVER['HTTPS'] ?? '') === 'on' ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]";
-$lowmark['base_url'] = rtrim($lowmark['base_url'], '/');
-$lowmark['canonical_url'] = $lowmark['base_url'] . $_SERVER['REQUEST_URI'];
+// Set base URL and canonical URL
+$https = (
+    (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || // Detect HTTPS via direct headers ...
+    (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') // ... or proxy headers
+);
+$host = $_SERVER['HTTP_HOST']                         // Get host with port (e.g. example.com or localhost:8000)
+?? ($_SERVER['SERVER_NAME'] ?? 'localhost');          // Fallback: server name or 'localhost'
+$lowmark['base_url'] = ($https ? 'https' : 'http') . "://$host"; // Build full base URL (e.g. http://localhost:8000)
+$lowmark['base_url'] = rtrim($lowmark['base_url'], '/');         // Remove trailing Slash
+$lowmark['canonical_url'] = $lowmark['base_url'] . $_SERVER['REQUEST_URI']; // Build canonical URL
 
 $end_time = microtime(true); // Determine the execution time of the script
 $execution_time = ($end_time - $start_time) * 1000; // Convert to milliseconds
