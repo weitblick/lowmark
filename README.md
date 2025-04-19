@@ -80,8 +80,8 @@ content/              → Page content in Markdown format
   └── index.md        → Homepage
 
 local/                → Scripts for the local preview mode (optional)
-  ├── livereload.js   → reload on change
-  ├── livereload.php  → get filetime and return it to livereload.js
+  ├── livereload.js   → Reload on change
+  ├── livereload.php  → Get filetime and return it to livereload.js
   └── router.php      → Entry point for the local PHP preview server
   
 lowmark/                  → Core logic of the site generator
