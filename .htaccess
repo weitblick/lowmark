@@ -59,3 +59,23 @@ RewriteRule ^(.*)$ content/$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+
+##############################################
+# Deny access to config.php
+##############################################
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+    <Files "config.php">
+        Require all denied
+    </Files>
+</IfModule>
+
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+    <Files "config.php">
+        Order allow,deny
+        Deny from all
+    </Files>
+</IfModule>
+
