@@ -3,9 +3,7 @@ title: Legal Notice / Impressum
 description: This website is a private, non-commercial project / Diese Website ist ein privates, nicht-kommerzielles Projekt
 ---
 
-# Impressum / Legal Notice
-
-## 🇬🇧 English
+# Legal Notice / Impressum
 
 #### This website is a private, non-commercial project.
 
@@ -24,8 +22,6 @@ https://github.com/weitblick
 <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer">CC BY-NC 4.0</a>
 
 ---
-
-## 🇩🇪 Deutsch
 
 #### Diese Website ist ein privates, nicht-kommerzielles Projekt.
 

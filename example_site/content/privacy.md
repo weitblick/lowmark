@@ -3,9 +3,7 @@ title: Privacy Policy / Datenschutzerklärung
 description: This website does not collect any personal data / Diese Website erhebt keine personenbezogenen Daten
 ---
 
-# Datenschutzerklärung / Privacy Policy
-
-## 🇬🇧 English
+# Privacy Policy / Datenschutzerklärung
 
 #### tl;dr: This website does _not_ collect any personal data. There are no cookies, trackers, or embedded third-party services.
 
@@ -16,8 +14,6 @@ The log is used solely for statistical analysis, troubleshooting, and abuse prev
 If you have any questions about this privacy policy, feel free to [get in touch](/legal.md).
 
 ---
-
-## 🇩🇪 Deutsch
 
 #### tl;dr: Diese Website erhebt _keine_ personenbezogenen Daten. Es gibt keine Cookies, Tracker oder eingebetteten Dienste Dritter.
 
