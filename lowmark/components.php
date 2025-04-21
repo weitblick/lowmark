@@ -194,7 +194,7 @@ function headline_ids($content, $to_top) {
     return ['content' => $content, 'headlines' => $headlines];
 }
 
-// Load Shortcodes
+// Include Shortcodes
 function load_shortcodes($dir = 'shortcodes') {
     if (!is_dir($dir)) {
         return;
