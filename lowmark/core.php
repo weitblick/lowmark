@@ -50,7 +50,7 @@ if ($base_dir === false) {
     http_response_code(500);
     $lowmark['error']   = true;
     $lowmark['title']   = 'Error 500';
-    $lowmark['content'] = "<h3>Error 500: Content directory not found</h3>";
+    $lowmark['content'] = '<h2>Error 500</h2><p>Content directory not found</p>';
 }
 
 $uri = urldecode($_GET['q'] ?? 'index.html'); // Get uri from the GET parameter q, default: index.html
@@ -60,7 +60,7 @@ if (!$lowmark['error'] && preg_match('/[\x00-\x1F\x7F<>:"|?*]/', $uri)) {
     http_response_code(400);
     $lowmark['error']   = true;
     $lowmark['title']   = 'Error 400';
-    $lowmark['content'] = "<h3>Error 400: Invalid characters in filename</h3>";
+    $lowmark['content'] = '<h2>Error 400</h2><p>Invalid characters in filename</p>';
 }
 
 $converted_path = preg_replace('/\.html$/', '.md', $uri); // Convert .html to .md
@@ -73,7 +73,7 @@ if (!$lowmark['error']) {
         http_response_code(404);
         $lowmark['error']   = true;
         $lowmark['title']   = 'Error 404';
-        $lowmark['content'] = "<h3>Error 404: File not found</h3>";
+        $lowmark['content'] = '<h2>Error 404</h2><p>File not found</p>';
     }
 }
 
