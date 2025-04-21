@@ -194,10 +194,25 @@ function headline_ids($content, $to_top) {
     return ['content' => $content, 'headlines' => $headlines];
 }
 
+// Load Shortcodes
+function load_shortcodes($dir = 'shortcodes') {
+    if (!is_dir($dir)) {
+        return;
+    }
+
+    foreach (glob("$dir/*.php") as $file) {
+        include_once $file;
+    }
+}
+
+load_shortcodes();
+
 // Add <details> as a workaround with HTML comments
+// deprecated
 function details_patch($content) {
     $content = preg_replace('/<!-- DETAILS (.*) -->/', "<details><summary>$1</summary>", $content); // replace the DETAILS HTML comment (start)
     $content = str_replace("<!-- /DETAILS -->", "</details>", $content); // replace the DETAILS HTML comment (end)
     return $content;
 }
+
 ?>

@@ -86,11 +86,13 @@ local/                → Scripts for the local preview mode (optional)
   └── router.php      → Entry point for the local PHP preview server
   
 lowmark/                  → Core logic of the site generator
-  ├── components.php      → Additional features
+  ├── components.php      → Additional core features
   ├── core.php            → Get markdown file and render it to HTML
   ├── frontmatter.php     → Frontmatter parser
   ├── Parsedown.php       → Markdown parser
   └── ParsedownExtra.php  → Extended Markdown support
+  
+shortcodes/           → small HTML components with embedded php logic
 
 .htaccess             → URL rewriting for Apache servers
 config.php            → Base configuration (must be customized!)
