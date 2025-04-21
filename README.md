@@ -39,7 +39,7 @@ Our goal is to create a lightweight online space where documents are simply docu
 
 > **Lowmark** isn’t about tech – it’s about values.
 
-Learn more about the philosophy behind Lowmark → [lowmark.de/about.html](https://lowmark.de/about.html)
+Learn more about the philosophy behind lowmark → [lowmark.de/about.html](https://lowmark.de/about.html)
 
 ---
 
