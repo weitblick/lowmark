@@ -1,4 +1,4 @@
-# deny access to _all_ files in lowmark/
+# deny access to _all_ files in local/
 # Deny all access by default for Apache 2.4+
 <IfModule mod_authz_core.c>
     Require all denied
@@ -12,13 +12,3 @@
 
 # Prevent directory listing for all Apache versions
 IndexIgnore *
-
-# Allow access to .js files (JavaScript)
-<FilesMatch "\.js$">
-    <IfModule mod_authz_core.c>
-        Require all granted
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-        Allow from all
-    </IfModule>
-</FilesMatch>

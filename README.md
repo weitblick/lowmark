@@ -69,6 +69,7 @@ Delete the `example_site/` folder and customize the `config.php` file.
 
 - Upload all files to a web server, **or**
 - Use the built-in PHP development server ([see below](#local-preview-server) for local preview).
+- The `local/` directory should not be transferred to the web server. It is not needed there.
 
 ---
 
@@ -134,7 +135,7 @@ The following line is required in the `<head>` section of your template `index.p
 <?php if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) echo '<script src="/local/livereload.js" data-no-instant defer></script>' ?>
 ```
 
-This will only activate livereload when running locally.
+This will only activate livereload when running locally. The `local/` directory should not be transferred to the web server. It is not needed there.
 
 ---
 
