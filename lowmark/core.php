@@ -101,7 +101,7 @@ if (!$lowmark['error'] && is_file($requested_path)) { // No errors: check if the
     if ($lowmark['mail_encode']  ?? false)   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
     if ($lowmark['headline_ids']  ?? false)  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
     if (($lowmark['shortcodes'] ?? false) !== false) {
-        load_shortcodes(); // pre-include all theme-shortcodes (e.g. menu.php)
+        load_shortcodes(); // pre-include all theme shortcodes (e.g. menu.php)
         $lowmark['content'] = render_shortcodes($lowmark['content']); // Render inline shortcodes
     }
 }

@@ -208,6 +208,7 @@ function load_shortcodes($dir = 'shortcodes') {
 // Inline shortcodes
 function render_shortcodes($content) {
     // Regex to match opening or closing shortcode comments
+    // e.g. <!-- [details "Summary"] --> ... <!-- [/details] -->
     $pattern = '/<!--\s*\[\/?([a-z0-9_]+)(.*?)\]\s*-->/is';
 
     // Array to hold final output parts
@@ -284,15 +285,6 @@ function parse_shortcode_attributes($text) {
     }
 
     return $attrs;
-}
-
-
-// Add <details> as a workaround with HTML comments
-// deprecated
-function details_patch($content) {
-    $content = preg_replace('/<!-- DETAILS (.*) -->/', "<details><summary>$1</summary>", $content); // replace the DETAILS HTML comment (start)
-    $content = str_replace("<!-- /DETAILS -->", "</details>", $content); // replace the DETAILS HTML comment (end)
-    return $content;
 }
 
 ?>
