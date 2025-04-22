@@ -80,7 +80,7 @@ assets/               → CSS, images, and other static assets
 content/              → Page content in Markdown format
   └── index.md        → Homepage
 
-image-cache/		  → dynamic image cache
+image-cache/          → dynamic image cache
 
 local/                → Scripts for the local preview mode (optional)
   ├── livereload.js   → Reload on change
