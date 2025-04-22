@@ -80,6 +80,8 @@ assets/               → CSS, images, and other static assets
 content/              → Page content in Markdown format
   └── index.md        → Homepage
 
+image-cache/		  → dynamic image cache
+
 local/                → Scripts for the local preview mode (optional)
   ├── livereload.js   → Reload on change
   ├── livereload.php  → Get filetime and return it to livereload.js
@@ -115,8 +117,9 @@ index.php             → Main template file; initializes lowmark by calling cor
 To enable this feature, make sure the files in the `local/` directory are present.
 
 1. **Install PHP**  
-   PHP version 8.0 or higher must be installed **locally** if it's not already available.
-
+   PHP version 8.0 or higher must be installed **locally** if it's not already available.  
+   PHP extensions: `GD` or `Imagick` for image scaling (optional but recommended)
+   
 2. **Start the server**  
    In the project root folder, run:
 

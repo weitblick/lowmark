@@ -22,46 +22,241 @@
  * See LICENSE file or https://opensource.org/licenses/MIT
  */
 
-// expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading and alignment
-function img_to_figure($content) {
-    $content = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $content); // Remove enclosing <p> tags if necessary
+// expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading, alignment and image resizing
+function img_to_figure($lowmark) {
+    // Remove enclosing <p> tags around <img> tags
+    $content = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $lowmark['content']);
 
-    // Replacing the <img> tag with <figure> tags
+    $default_resize = $lowmark['image_resize'] ?? '';
+    $image_format = $lowmark['image_format'] ?? '';
+    $image_quality = $lowmark['image_quality'] ?? '';
+
+    // Replace <img> tags with <figure> structure
     $pattern = '/<img\s+([^>]*)>/';
-    $content = preg_replace_callback($pattern, function($matches) {
+    $content = preg_replace_callback($pattern, function($matches) use ($default_resize, $image_format, $image_quality) {
         $img_tag = $matches[0];
         $attributes = $matches[1];
         $align = '';
+        $image_resize = $default_resize;
 
-        // Check for alignment in alt attribute
-        if (preg_match('/alt=":((left|right|center)(\s*))/', $attributes, $alt_matches)) {
-            $attributes = str_replace(':' . $alt_matches[1], '', $attributes); // Remove the alignment part from the alt attribute
-            $align = trim($alt_matches[1]); // align without trailing spaces
-            $img_tag = '<img ' . $attributes . '>'; // Rebuild the img tag with modified attributes
+        // Extract src attribute
+        $src = '';
+        if (preg_match('/src="([^"]+)"/', $attributes, $src_matches)) {
+            $src = $src_matches[1];
         }
 
-        // Add loading="lazy"
-        $img_tag = preg_replace('/\s*\/>$/', ' loading="lazy" />', $img_tag);
+        // Extract and parse alt attribute
+        if (preg_match('/alt="([^"]*)"/', $attributes, $alt_matches)) {
+            $alt = $alt_matches[1];
 
-        // Build the figure tag
+            // Check for alignment keyword (:left, :right, :center)
+            if (preg_match('/:(left|right|center)\b/', $alt, $align_match)) {
+                $align = $align_match[1];
+                $alt = str_replace(':' . $align, '', $alt);
+            }
+
+            // Check for resize instruction (:800x600, :750x, :x400)
+            if (preg_match('/:([0-9]*x[0-9]*)\b/', $alt, $size_match)) {
+                $image_resize = $size_match[1];
+                $alt = str_replace(':' . $size_match[1], '', $alt);
+            }
+
+            // Clean up the alt text
+            $alt = trim(preg_replace('/\s+/', ' ', $alt));
+
+            // Replace alt attribute in the tag
+            $attributes = preg_replace('/alt="[^"]*"/', 'alt="' . htmlspecialchars($alt, ENT_QUOTES) . '"', $attributes);
+        }
+
+        // Modify src if image resizing is enabled
+        if ($image_resize && $src) {
+            $scaled = scale_image($src, $image_resize, $image_format, $image_quality);
+            $new_src = $scaled['src'];
+            $attributes = preg_replace('/src="[^"]+"/', 'src="' . htmlspecialchars($new_src, ENT_QUOTES) . '"', $attributes);
+
+            // Set width/height attributes if available
+            if (!empty($scaled['width'])) {
+                $attributes .= ' width="' . (int)$scaled['width'] . '"';
+            }
+            if (!empty($scaled['height'])) {
+                $attributes .= ' height="' . (int)$scaled['height'] . '"';
+            }
+        }
+
+        // Rebuild the <img> tag with lazy loading
+        $img_tag = '<img ' . $attributes . ' loading="lazy" />';
+
+        // Start building the <figure> tag
         $figure_tag = '<figure';
         if ($align) {
             $figure_tag .= ' class="lowmark-' . $align . '"';
         }
         $figure_tag .= ">$img_tag";
 
-        // Use the title attribute for <figcaption> - if available
+        // Add <figcaption> if a title attribute is present
         if (preg_match('/title="([^"]*)"/', $attributes, $title_matches)) {
-            $caption = $title_matches[1];
-            $caption = html_entity_decode(html_entity_decode($caption, ENT_QUOTES), ENT_QUOTES); // prevent double encoding of special characters
+            $caption = html_entity_decode(html_entity_decode($title_matches[1], ENT_QUOTES), ENT_QUOTES);
             $figure_tag .= "<figcaption>$caption</figcaption>";
         }
+
         $figure_tag .= "</figure>";
 
         return $figure_tag;
     }, $content);
 
     return $content;
+}
+
+function scale_image($src, $image_resize, $image_format, $image_quality) {
+    $cache_dir = 'image-cache/';
+    $content_prefix = 'content/';
+    $source_path = $content_prefix . ltrim($src, '/');
+
+    if (!file_exists($source_path)) {
+        return ['src' => $src];
+    }
+
+    // Parse resize string
+    $width = null;
+    $height = null;
+    if (preg_match('/^([0-9]*)x([0-9]*)$/', $image_resize, $matches)) {
+        $width = $matches[1] !== '' ? (int)$matches[1] : null;
+        $height = $matches[2] !== '' ? (int)$matches[2] : null;
+    } else {
+        return ['src' => $src];
+    }
+
+    // Fallback bei fehlenden Libs
+    if (!function_exists('imagecreatetruecolor') && !class_exists('Imagick')) {
+        return ['src' => $src];
+    }
+
+    $relative_path = preg_replace('#^content/#', '', ltrim($src, '/'));
+    $extension = pathinfo($relative_path, PATHINFO_EXTENSION);
+    $base_name = preg_replace('/\.' . preg_quote($extension, '/') . '$/', '', $relative_path);
+
+    $format = strtolower($image_format ?: $extension);
+    $size_label = ($width ?: '') . 'x' . ($height ?: '');
+    $quality_label = 'q' . (int)$image_quality;
+    $cached_filename = $base_name . '_' . $size_label . $quality_label . '.' . $format;
+    $cached_path = $cache_dir . $cached_filename;
+
+    if (file_exists($cached_path)) {
+        return ['src' => $cached_path, 'width' => $width, 'height' => $height];
+    }
+
+    $cache_subdir = dirname($cached_path);
+    if (!is_dir($cache_subdir)) {
+        mkdir($cache_subdir, 0755, true);
+    }
+
+    // Try Imagick
+    if (extension_loaded('imagick')) {
+        try {
+            $image = new Imagick($source_path);
+            $orig_width = $image->getImageWidth();
+            $orig_height = $image->getImageHeight();
+
+            if ($width && $height) {
+                $src_ratio = $orig_width / $orig_height;
+                $dst_ratio = $width / $height;
+
+                if ($src_ratio > $dst_ratio) {
+                    $new_width = (int)($orig_height * $dst_ratio);
+                    $x = (int)(($orig_width - $new_width) / 2);
+                    $image->cropImage($new_width, $orig_height, $x, 0);
+                } else {
+                    $new_height = (int)($orig_width / $dst_ratio);
+                    $y = (int)(($orig_height - $new_height) / 2);
+                    $image->cropImage($orig_width, $new_height, 0, $y);
+                }
+
+                $image->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 1);
+            } elseif ($width || $height) {
+                $image->resizeImage($width ?: 0, $height ?: 0, Imagick::FILTER_LANCZOS, 1);
+                $width = $image->getImageWidth();
+                $height = $image->getImageHeight();
+            }
+
+            $image->setImageFormat($format);
+            $image->setImageCompressionQuality((int)$image_quality);
+            $image->writeImage($cached_path);
+            $image->clear();
+            $image->destroy();
+
+            return ['src' => $cached_path, 'width' => $width, 'height' => $height];
+        } catch (Exception $e) {}
+    }
+
+    // Try GD
+    if (extension_loaded('gd')) {
+        $info = getimagesize($source_path);
+        if (!$info) return ['src' => $src];
+
+        list($orig_width, $orig_height) = $info;
+        $mime = $info['mime'];
+
+        switch ($mime) {
+            case 'image/jpeg': $source_img = imagecreatefromjpeg($source_path); break;
+            case 'image/png':  $source_img = imagecreatefrompng($source_path); break;
+            case 'image/gif':  $source_img = imagecreatefromgif($source_path); break;
+            case 'image/webp': $source_img = imagecreatefromwebp($source_path); break;
+            default: return ['src' => $src];
+        }
+
+        if ($width && $height) {
+            $src_ratio = $orig_width / $orig_height;
+            $dst_ratio = $width / $height;
+
+            if ($src_ratio > $dst_ratio) {
+                $crop_width = (int)($orig_height * $dst_ratio);
+                $crop_height = $orig_height;
+                $src_x = (int)(($orig_width - $crop_width) / 2);
+                $src_y = 0;
+            } else {
+                $crop_width = $orig_width;
+                $crop_height = (int)($orig_width / $dst_ratio);
+                $src_x = 0;
+                $src_y = (int)(($orig_height - $crop_height) / 2);
+            }
+
+            $resized_img = imagecreatetruecolor($width, $height);
+            imagecopyresampled($resized_img, $source_img, 0, 0, $src_x, $src_y, $width, $height, $crop_width, $crop_height);
+        } elseif ($width || $height) {
+            if ($width && !$height) {
+                $height = intval($orig_height * $width / $orig_width);
+            } elseif (!$width && $height) {
+                $width = intval($orig_width * $height / $orig_height);
+            }
+
+            $resized_img = imagecreatetruecolor($width, $height);
+            imagecopyresampled($resized_img, $source_img, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height);
+        } else {
+            return ['src' => $src];
+        }
+
+        switch ($format) {
+            case 'jpeg':
+            case 'jpg':
+                imagejpeg($resized_img, $cached_path, (int)$image_quality);
+                break;
+            case 'png':
+                imagepng($resized_img, $cached_path, min(9, max(0, 9 - round($image_quality / 10))));
+                break;
+            case 'webp':
+                imagewebp($resized_img, $cached_path, (int)$image_quality);
+                break;
+            default:
+                return ['src' => $src];
+        }
+
+        imagedestroy($resized_img);
+        imagedestroy($source_img);
+
+        return ['src' => $cached_path, 'width' => $width, 'height' => $height];
+    }
+
+    return ['src' => $src];
 }
 
 // Replace internal links to *.md with *.html and extend external links with target="_blank"
