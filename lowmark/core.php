@@ -37,6 +37,7 @@ include_once 'lowmark/frontmatter.php'; // Simple frontmatter parser
 include_once 'lowmark/components.php'; // Lowmark components
 include_once 'lowmark/Parsedown.php'; // Markdown parser. Download from https://github.com/erusev/parsedown
 include_once 'lowmark/ParsedownExtra.php'; // Markdown extra extension. Download from https://github.com/erusev/parsedown-extra
+load_shortcodes(); // pre-include all theme shortcodes (e.g. menu.php)
 
 // Validate and resolve the content directory
 // Ensures the 'content' folder exists and resolves its absolute path.
@@ -100,10 +101,7 @@ if (!$lowmark['error'] && is_file($requested_path)) { // No errors: check if the
     if ($lowmark['extend_links']  ?? false)  $lowmark['content'] = extend_links($lowmark['content']); // Extend <a> tags
     if ($lowmark['mail_encode']  ?? false)   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
     if ($lowmark['headline_ids']  ?? false)  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
-    if (($lowmark['shortcodes'] ?? false) !== false) {
-        load_shortcodes(); // pre-include all theme shortcodes (e.g. menu.php)
-        $lowmark['content'] = render_shortcodes($lowmark['content']); // Render inline shortcodes
-    }
+    if ($lowmark['shortcodes'] ?? false)     $lowmark['content'] = render_shortcodes($lowmark['content']); // Render inline shortcodes e.g. <!-- [shortcode-name key="value"] -->
 }
 
 // Set base URL and canonical URL

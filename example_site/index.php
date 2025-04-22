@@ -24,8 +24,7 @@
         	</a>
         </div>
         <nav>
-            <a href="/">Home</a>
-            <a href="/example.html">Example Page</a>
+            <?= render_menu($lowmark['menu'], $uri) ?>
         </nav>
     </header>
     <div class="main">
