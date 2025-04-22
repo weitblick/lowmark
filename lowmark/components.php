@@ -32,7 +32,7 @@ function img_to_figure($lowmark) {
     $image_quality = $lowmark['image_quality'] ?? '';
 
     // Replace <img> tags with <figure> structure
-    $pattern = '/<img\s+([^>]*)>/';
+    $pattern = '/<img\s+([^>]*?)(?:\s*\/)?>/';
     $content = preg_replace_callback($pattern, function($matches) use ($default_resize, $image_format, $image_quality) {
         $img_tag = $matches[0];
         $attributes = $matches[1];
@@ -83,8 +83,7 @@ function img_to_figure($lowmark) {
             }
         }
 
-        // Rebuild the <img> tag with lazy loading
-        $img_tag = '<img ' . $attributes . ' loading="lazy" />';
+        $img_tag = '<img ' . $attributes . ' loading="lazy" />'; // Rebuild the <img> tag with lazy loading
 
         // Start building the <figure> tag
         $figure_tag = '<figure';
