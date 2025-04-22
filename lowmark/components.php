@@ -23,12 +23,12 @@
  */
 
 // expand <img> tags to <figure><img><figcaption></figcaption></figure> and add lazy loading and alignment
-function img_to_figure($html) {
-    $html = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $html); // Remove enclosing <p> tags if necessary
+function img_to_figure($content) {
+    $content = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $content); // Remove enclosing <p> tags if necessary
 
     // Replacing the <img> tag with <figure> tags
     $pattern = '/<img\s+([^>]*)>/';
-    $html = preg_replace_callback($pattern, function($matches) {
+    $content = preg_replace_callback($pattern, function($matches) {
         $img_tag = $matches[0];
         $attributes = $matches[1];
         $align = '';
@@ -59,9 +59,9 @@ function img_to_figure($html) {
         $figure_tag .= "</figure>";
 
         return $figure_tag;
-    }, $html);
+    }, $content);
 
-    return $html;
+    return $content;
 }
 
 // Replace internal links to *.md with *.html and extend external links with target="_blank"
