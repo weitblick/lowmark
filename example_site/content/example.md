@@ -1,11 +1,10 @@
 ---
 title: Example Page
 description: A short lead description about this content page
-details_patch: true
 ---
 # Example Page
 
-<!-- DETAILS Table of contents -->
+<!-- [details "Table of contents"] -->
 
 - [Headings](#headings)
 - [Paragraph](#paragraph)
@@ -13,7 +12,7 @@ details_patch: true
 - [Tables](#tables)
 - ...
 
-<!-- /DETAILS -->
+<!-- [/details] -->
 
 ![Alt-Text](img/wahrheit.webp "caption optional")
 

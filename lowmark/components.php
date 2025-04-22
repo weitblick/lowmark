@@ -205,7 +205,87 @@ function load_shortcodes($dir = 'shortcodes') {
     }
 }
 
-load_shortcodes();
+// Inline shortcodes
+function render_shortcodes($content) {
+    // Regex to match opening or closing shortcode comments
+    $pattern = '/<!--\s*\[\/?([a-z0-9_]+)(.*?)\]\s*-->/is';
+
+    // Array to hold final output parts
+    $output = [];
+    $offset = 0;
+
+    // Find all shortcode tags
+    if (preg_match_all($pattern, $content, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $full_tag = $match[0][0];
+            $tag_pos = $match[0][1];
+            $keyword = strtolower($match[1][0]);
+            $raw_attrs = trim($match[2][0]);
+
+            // Append content before this tag
+            $output[] = substr($content, $offset, $tag_pos - $offset);
+            $offset = $tag_pos + strlen($full_tag);
+
+            // Build attributes array
+            $attrs = parse_shortcode_attributes($raw_attrs);
+
+            // Check if it's a closing tag
+            if (strpos($match[0][0], '[/' . $keyword) !== false) {
+                $attrs['end'] = true; // or use 'closing' if you prefer
+            }
+
+            // Include shortcode handler
+            $handler_file = "shortcodes/{$keyword}.php";
+            if (file_exists($handler_file)) {
+                include_once($handler_file);
+                $func = $keyword . '_shortcode';
+
+                if (function_exists($func)) {
+                    // Call the shortcode function
+                    $output[] = $func($attrs);
+                } else {
+                    // Function not defined
+                    $output[] = "<!-- shortcode function '$func' not found -->";
+                }
+            } else {
+                // Handler file not found
+                $output[] = "<!-- shortcode handler for '$keyword' not found -->";
+            }
+        }
+
+        // Append remaining content after last match
+        $output[] = substr($content, $offset);
+        return implode('', $output);
+    }
+
+    return $content; // no matches found
+}
+
+function parse_shortcode_attributes($text) {
+    $attrs = [];
+    $index = 1;
+
+    // Matches key="value" or "value" or bareword
+    $pattern = '/(\w+)\s*=\s*"([^"]*)"|"(.*?)"|(\S+)/';
+
+    if (preg_match_all($pattern, $text, $matches, PREG_SET_ORDER)) {
+        foreach ($matches as $m) {
+            if (!empty($m[1])) {
+                // key="value"
+                $attrs[strtolower($m[1])] = $m[2];
+            } elseif (!empty($m[3])) {
+                // "value" (positional)
+                $attrs['attribute_' . $index++] = $m[3];
+            } elseif (!empty($m[4])) {
+                // bareword (positional)
+                $attrs['attribute_' . $index++] = $m[4];
+            }
+        }
+    }
+
+    return $attrs;
+}
+
 
 // Add <details> as a workaround with HTML comments
 // deprecated
