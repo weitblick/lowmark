@@ -10,8 +10,8 @@
  * Part of:      Theme "Lowmark Simple Theme"
  *
  * Author:       Erhard Maria Klein (https://lowmark.de)
- * Version:      0.4
- * Last updated: 2025-04-22
+ * Version:      0.5
+ * Last updated: 2025-04-23
  */
 
 function details_shortcode($attributes) {

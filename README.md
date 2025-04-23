@@ -11,8 +11,8 @@
 
 **LOWMARK – A Low-tech Markdown Website Generator**
 
-Version: 0.4  
-Last updated: 2025-04-16  
+Version: 0.5
+Last updated: 2025-04-23
 Homepage: https://lowmark.de  
 Demo Site: https://demo.lowmark.de  
 Repository: https://github.com/weitblick/lowmark

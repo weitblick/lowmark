@@ -10,8 +10,8 @@
  * LOWMARK – A Low-tech Markdown Website Generator
  *
  * File:         core.php
- * Version:      0.4
- * Last updated: 2025-04-20
+ * Version:      0.5
+ * Last updated: 2025-04-23
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
