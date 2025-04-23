@@ -259,7 +259,8 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
 }
 
 // Replace internal links to *.md with *.html and extend external links with target="_blank"
-function extend_links($content) {
+function extend_links($lowmark) {
+    $content = $lowmark['content'];
     $pattern = '/<a\s+(.*?)href=["\'](.*?\.md)["\'](.*?)>(.*?)<\/a>/i'; // Regular expression to identify internal .md links
     $content = preg_replace_callback($pattern, function($matches) {
         $tag = $matches[0];
@@ -295,7 +296,8 @@ function extend_links($content) {
 }
 
 // Find all email addresses in the content and call email encoding function
-function mail_encode($content) {
+function mail_encode($lowmark) {
+    $content = $lowmark['content'];
     preg_match_all('/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/', $content, $matches);
 
     // Iterate through each found email address and replace them with the cloaked version
@@ -344,7 +346,10 @@ EOD;
 }
 
 // add unique ids to headlines
-function headline_ids($content, $to_top) {
+function headline_ids($lowmark) {
+    $content = $lowmark['content'];
+    $to_top  = $lowmark['headline_to_top'];
+
     // Regex pattern to match headline tags
     $pattern = '/<h([1-6])>(.*?)<\/h\1>/i';
     $headlines = [];
@@ -400,7 +405,8 @@ function load_shortcodes($dir = 'shortcodes') {
 }
 
 // Inline shortcodes
-function render_shortcodes($content) {
+function render_shortcodes($lowmark) {
+    $content = $lowmark['content'];
     // Regex to match opening or closing shortcode comments
     // e.g. <!-- [details "Summary"] --> ... <!-- [/details] -->
     $pattern = '/<!--\s*\[\/?([a-z0-9_]+)(.*?)\]\s*-->/is';

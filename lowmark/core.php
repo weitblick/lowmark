@@ -98,10 +98,10 @@ if (!$lowmark['error'] && is_file($requested_path)) { // No errors: check if the
 
     // Optional content enhancements
     if ($lowmark['img_to_figure']  ?? false) $lowmark['content'] = img_to_figure($lowmark); // Add <figure> to <img> tags
-    if ($lowmark['extend_links']  ?? false)  $lowmark['content'] = extend_links($lowmark['content']); // Extend <a> tags
-    if ($lowmark['mail_encode']  ?? false)   $lowmark['content'] = mail_encode($lowmark['content']); // Mail encoding
-    if ($lowmark['headline_ids']  ?? false)  [$lowmark['content'], $lowmark['headlines']] = array_values(headline_ids($lowmark['content'], $lowmark['headline_to_top'])); // Add unique ids to headlines and return an array of headlines
-    if ($lowmark['shortcodes'] ?? false)     $lowmark['content'] = render_shortcodes($lowmark['content']); // Render inline shortcodes e.g. <!-- [shortcode-name key="value"] -->
+    if ($lowmark['extend_links']  ?? false)  $lowmark['content'] = extend_links($lowmark); // Extend <a> tags
+    if ($lowmark['mail_encode']  ?? false)   $lowmark['content'] = mail_encode($lowmark); // Mail encoding
+    if ($lowmark['headline_ids'] ?? false)   ['content' => $lowmark['content'], 'headlines' => $lowmark['headlines']] = headline_ids($lowmark); // Add unique ids to headlines and return an array of headlines
+    if ($lowmark['shortcodes'] ?? false)     $lowmark['content'] = render_shortcodes($lowmark); // Render inline shortcodes e.g. <!-- [shortcode-name key="value"] -->
 }
 
 // Set base URL and canonical URL
