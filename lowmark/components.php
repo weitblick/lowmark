@@ -106,31 +106,58 @@ function img_to_figure($lowmark) {
     return $content;
 }
 
+// scale and cache images
 function scale_image($src, $image_resize, $image_format, $image_quality) {
     $cache_dir = 'image-cache/';
     $content_prefix = 'content/';
-    $source_path = $content_prefix . ltrim($src, '/');
+    $relative_path = ltrim($src, '/'); // Remove leading slash for consistent path handling
 
-    if (!file_exists($source_path)) {
+    // Path attack prevention: Block '..', backslashes, or null bytes (basic directory traversal protection)
+    if (
+        strpos($relative_path, '..') !== false ||
+        strpos($relative_path, '\\') !== false ||
+        strpos($relative_path, "\0") !== false
+    ) {
+        // Early return if an invalid or potentially malicious path is detected
         return ['src' => $src];
     }
 
-    // Parse resize string
+    // Build the full path to the source file inside the content directory
+    $source_path = $content_prefix . $relative_path;
+
+    // realpath() ensures the resulting path is really beneath the content/ directory and resolves symlinks
+    $real_source = realpath($source_path);
+    $real_content_prefix = realpath($content_prefix);
+    if (
+        $real_source === false || $real_content_prefix === false ||
+        strpos($real_source, $real_content_prefix) !== 0
+    ) {
+        // If the file does not exist or is outside the allowed directory, abort
+        return ['src' => $src];
+    }
+
+    // Ensure source file really exists
+    if (!file_exists($real_source)) {
+        return ['src' => $src];
+    }
+
+    // Parse the requested resize geometry (e.g., "400x200")
     $width = null;
     $height = null;
     if (preg_match('/^([0-9]*)x([0-9]*)$/', $image_resize, $matches)) {
         $width = $matches[1] !== '' ? (int)$matches[1] : null;
         $height = $matches[2] !== '' ? (int)$matches[2] : null;
     } else {
+        // Invalid resize string, so abort
         return ['src' => $src];
     }
 
-    // Fallback bei fehlenden Libs
+    // Ensure image processing support is available
     if (!function_exists('imagecreatetruecolor') && !class_exists('Imagick')) {
         return ['src' => $src];
     }
 
-    $relative_path = ltrim($src, '/');
+    // Build the cache filename and path for the resized image
     $extension = pathinfo($relative_path, PATHINFO_EXTENSION);
     $base_name = preg_replace('/\.' . preg_quote($extension, '/') . '$/', '', $relative_path);
 
@@ -140,23 +167,41 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
     $cached_filename = $base_name . '_' . $size_label . $quality_label . '.' . $format;
     $cached_path = $cache_dir . $cached_filename;
 
-    if (file_exists($cached_path)) {
-        return ['src' => $cached_path, 'width' => $width, 'height' => $height];
-    }
-
+    // Ensure the cache directory for the resized image exists (create if necessary)
     $cache_subdir = dirname($cached_path);
     if (!is_dir($cache_subdir)) {
         mkdir($cache_subdir, 0755, true);
     }
 
-    // Try Imagick
+    // Use realpath() to ensure cache path is really under image-cache/ (protect against directory traversal)
+    $real_cache_dir = realpath($cache_dir);
+    $real_cache_path = realpath($cache_subdir);
+
+    if ($real_cache_dir === false || $real_cache_path === false || strpos($real_cache_path, $real_cache_dir) !== 0) {
+        // Abort if the directory isn't really inside cache directory
+        return ['src' => $src];
+    }
+
+    // Also verify the final file path is under cache directory (future file, not yet existing)
+    $future_cache_path = $real_cache_dir . '/' . ltrim($cached_filename, '/');
+    if (strpos($future_cache_path, $real_cache_dir) !== 0) {
+        return ['src' => $src];
+    }
+
+    // If the resized image is already cached, return it immediately
+    if (file_exists($cached_path)) {
+        return ['src' => $cached_path, 'width' => $width, 'height' => $height];
+    }
+
+    // Try resizing and saving using Imagick if available
     if (extension_loaded('imagick')) {
         try {
-            $image = new Imagick($source_path);
+            $image = new Imagick($real_source);
             $orig_width = $image->getImageWidth();
             $orig_height = $image->getImageHeight();
 
             if ($width && $height) {
+                // Crop and resize to exact width/height, maintaining aspect ratio and center cropping
                 $src_ratio = $orig_width / $orig_height;
                 $dst_ratio = $width / $height;
 
@@ -172,11 +217,13 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
 
                 $image->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 1);
             } elseif ($width || $height) {
+                // Resize proportionally if only one dimension is given
                 $image->resizeImage($width ?: 0, $height ?: 0, Imagick::FILTER_LANCZOS, 1);
                 $width = $image->getImageWidth();
                 $height = $image->getImageHeight();
             }
 
+            // Set format and quality, then write to cache
             $image->setImageFormat($format);
             $image->setImageCompressionQuality((int)$image_quality);
             $image->writeImage($cached_path);
@@ -187,23 +234,25 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
         } catch (Exception $e) {}
     }
 
-    // Try GD
+    // If Imagick is not available, try with GD library
     if (extension_loaded('gd')) {
-        $info = getimagesize($source_path);
+        $info = getimagesize($real_source);
         if (!$info) return ['src' => $src];
 
         list($orig_width, $orig_height) = $info;
         $mime = $info['mime'];
 
+        // Load image depending on mime type
         switch ($mime) {
-            case 'image/jpeg': $source_img = imagecreatefromjpeg($source_path); break;
-            case 'image/png':  $source_img = imagecreatefrompng($source_path); break;
-            case 'image/gif':  $source_img = imagecreatefromgif($source_path); break;
-            case 'image/webp': $source_img = imagecreatefromwebp($source_path); break;
+            case 'image/jpeg': $source_img = imagecreatefromjpeg($real_source); break;
+            case 'image/png':  $source_img = imagecreatefrompng($real_source); break;
+            case 'image/gif':  $source_img = imagecreatefromgif($real_source); break;
+            case 'image/webp': $source_img = imagecreatefromwebp($real_source); break;
             default: return ['src' => $src];
         }
 
         if ($width && $height) {
+            // Crop and resize to exact width/height, maintaining aspect ratio and center cropping
             $src_ratio = $orig_width / $orig_height;
             $dst_ratio = $width / $height;
 
@@ -222,6 +271,7 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
             $resized_img = imagecreatetruecolor($width, $height);
             imagecopyresampled($resized_img, $source_img, 0, 0, $src_x, $src_y, $width, $height, $crop_width, $crop_height);
         } elseif ($width || $height) {
+            // Resize proportionally if only one dimension is given
             if ($width && !$height) {
                 $height = intval($orig_height * $width / $orig_width);
             } elseif (!$width && $height) {
@@ -231,9 +281,11 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
             $resized_img = imagecreatetruecolor($width, $height);
             imagecopyresampled($resized_img, $source_img, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height);
         } else {
+            // No valid size provided
             return ['src' => $src];
         }
 
+        // Save the image in the requested format and quality
         switch ($format) {
             case 'jpeg':
             case 'jpg':
@@ -249,12 +301,14 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
                 return ['src' => $src];
         }
 
+        // Clean up resources
         imagedestroy($resized_img);
         imagedestroy($source_img);
 
         return ['src' => $cached_path, 'width' => $width, 'height' => $height];
     }
 
+    // If all fails, return original source
     return ['src' => $src];
 }
 
