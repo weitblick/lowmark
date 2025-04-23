@@ -174,7 +174,4 @@ Content is created locally in Markdown and then published simply by transferring
 
 ### Formatting
 
-Content is written using **Extended Markdown**. All common Markdown elements are supported, along with additional **components**, which can be activated globally via `config.php` or individually through the frontmatter. These include:
-
-- Enhanced **image rendering with automatic scaling** (suitable for external images or lazy loading)
-- **E-mail address obfuscation** to protect against web crawlers
+Content is written using **Extended Markdown**. All common Markdown elements are supported, along with additional **components**, which can be activated globally via `config.php` or individually through the frontmatter. These include features such as **enhanced image rendering** with automatic scaling (suitable for external images or lazy loading), and **e-mail address obfuscation** to protect against web crawlers, **among others**.
