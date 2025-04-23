@@ -156,8 +156,6 @@ This way, your existing configuration (`config.php`), content ( `content/`) and 
 >
 > To prevent accidental overwrites, always create a **full backup** of your site before upgrading!
 
-Gerne! Hier ist die englische Übersetzung deines Abschnitts für die `README.md`:
-
 ------
 
 ## Editorial Workflow (Creating Content)
