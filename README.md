@@ -155,3 +155,26 @@ This way, your existing configuration (`config.php`), content ( `content/`) and 
 > ⚠️ If you have made custom changes to core parts of Lowmark (e.g. `.htaccess` or other internal files), make sure to **back them up** or **exclude them from the update package** before merging.
 >
 > To prevent accidental overwrites, always create a **full backup** of your site before upgrading!
+
+Gerne! Hier ist die englische Übersetzung deines Abschnitts für die `README.md`:
+
+------
+
+## Editorial Workflow (Creating Content)
+
+Content in **lowmark** is managed directly via `.md` files placed inside the `content/` directory. These files contain a **YAML frontmatter**, which should include at least a `title`. A `description` field can be added and global configuration defaults can also be selectively overridden within the frontmatter.
+
+Content is created locally in Markdown and then published simply by transferring it to the server’s `content/` directory via FTP or `rsync`.
+
+### Structure and Organization
+
+- Content can be organized into **subfolders** (e.g. `content/blog/article-name.md`), which automatically results in clean URLs like `/blog/article-name.html`.
+- **Images**, PDFs, and other downloadable files should also be stored within the `content/` directory—ideally in the same subfolder as the related `.md` file—and referenced **relatively**. This ensures full portability of the project.
+- Articles must be **linked manually**—either through a navigation menu defined in `config.php`, and/or via links placed on the homepage or other pages. It is recommended to create a manually maintained **table of contents** or teaser list for better accessibility and structure.
+
+### Formatting
+
+Content is written using **Extended Markdown**. All common Markdown elements are supported, along with additional **components**, which can be activated globally via `config.php` or individually through the frontmatter. These include:
+
+- Enhanced **image rendering with automatic scaling** (suitable for external images or lazy loading)
+- **E-mail address obfuscation** to protect against web crawlers
