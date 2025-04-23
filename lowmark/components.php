@@ -130,7 +130,7 @@ function scale_image($src, $image_resize, $image_format, $image_quality) {
         return ['src' => $src];
     }
 
-    $relative_path = preg_replace('#^content/#', '', ltrim($src, '/'));
+    $relative_path = ltrim($src, '/');
     $extension = pathinfo($relative_path, PATHINFO_EXTENSION);
     $base_name = preg_replace('/\.' . preg_quote($extension, '/') . '$/', '', $relative_path);
 
