@@ -32,11 +32,18 @@
             <?= $lowmark['content'] ?>
         </main>
         <footer>
-            <span><a href="/">Home</a></span>
-            <span>| <a href="/example.html">Example Page</a></span>
-            <span>| <a href="/legal.html">Legal Notice</a></span>
-            <span>| <a href="/privacy.html">Privacy Policy</a></span>
-            <br><span>powered by <a href="https://lowmark.de" target="_blank">lowmark</a></span>
+        <?php
+            $links = [];
+            foreach ($lowmark['footer_menu'] as $url => $label) {
+                $links[] = '<a href="/' . $url . '">' . $label . '</a>';
+            }
+            echo '<span>' . implode(' | ', $links) . '</span><br>';
+            echo '<span>powered by <a href="https://lowmark.de" target="_blank">lowmark</a>';
+            if (!empty($lowmark['footer_copyright'])) {
+                echo '|' . $lowmark['footer_copyright'];
+            }
+            echo '</span>';
+        ?>
         </footer>
     </div>
 </body>
