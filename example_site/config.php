@@ -27,7 +27,7 @@ $lowmark = [
     'raw_html'            => false,  // true: don’t render raw HTML in Markdown
     'image_resize'        => '720x', // Enables image resizing if set. Use format WIDTHxHEIGHT (in pixels) for cropping. Use only WIDTH (e.g. '720x') or only HEIGHT (e.g. 'x480') for proportional scaling.
     'image_format'        => 'webp', // Target image format (e.g. 'webp', 'jpg', 'png')
-    'image_quality'       => '80',   // Output image quality (1–100)
+    'image_quality'       => '75',   // Output image quality (1–100)
     'shortcodes'          => true,   // Enable Shortcodes
 
 
