@@ -28,8 +28,8 @@ function img_to_figure($lowmark) {
     $content = preg_replace('/<p>(<img\s+[^>]+>)<\/p>/', '$1', $lowmark['content']);
 
     $default_resize = $lowmark['image_resize'] ?? '';
-    $image_format = $lowmark['image_format'] ?? '';
-    $image_quality = $lowmark['image_quality'] ?? '';
+    $image_format = $lowmark['image_format'] ?? 'webp'; // Fallback Format
+    $image_quality = $lowmark['image_quality'] ?? '75'; // Fallback Quality
 
     // Replace <img> tags with <figure> structure
     $pattern = '/<img\s+([^>]*?)(?:\s*\/)?>/';
