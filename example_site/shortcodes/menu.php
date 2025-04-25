@@ -18,31 +18,60 @@
  *
  * Author:       Erhard Maria Klein (https://lowmark.de)
  * Version:      0.5
- * Last updated: 2025-04-23
+ * Last updated: 2025-04-25
  */
 
 function render_menu($menu, $current_uri) {
-    $tree = [];
+    $tree = []; // will hold the nested menu structure
 
-    // Convert flat menu array into a nested structure
     foreach ($menu as $path => $label) {
-        $parts = explode('/', $path);
+        $parts = explode('/', $path); // split path into folders (e.g., 'doku/index.html' → ['doku', 'index.html'])
         $current = &$tree;
+        $full_path = '';
+        $skip_nesting = false;
 
+        // Check if any parent path exists in the menu
+        // If not, we should skip nesting and place the item at top level
         foreach ($parts as $i => $part) {
             if ($i === count($parts) - 1) {
-                // Assign label to full path
+                break; // skip the last part (the file)
+            }
+
+            $full_path .= $part . '/'; // reconstruct path, e.g., 'doku/'
+
+            // If the parent is not defined in the menu, mark to skip nesting
+            if (!isset($menu[$full_path])) {
+                $skip_nesting = true;
+            } else {
+                $skip_nesting = false; // parent exists, allow nesting
+                break;
+            }
+        }
+
+        if ($skip_nesting) {
+            // If nesting is to be skipped, add directly to the root of the tree
+            $tree[$path] = $label;
+            continue;
+        }
+
+        // Build nested tree structure
+        $current = &$tree;
+        foreach ($parts as $i => $part) {
+            if ($i === count($parts) - 1) {
+                // Last part → this is the actual file
                 $current[$path] = $label;
             } else {
+                // Intermediate part → this is a folder
                 $folder = $part . '/';
                 if (!isset($current[$folder])) {
                     $current[$folder] = [];
                 }
-                $current = &$current[$folder];
+                $current = &$current[$folder]; // go one level deeper
             }
         }
     }
 
+    // Delegate rendering to HTML builder function
     return render_menu_html($tree, $menu, $current_uri);
 }
 
@@ -50,56 +79,72 @@ function render_menu_html($tree, $flat_menu, $current_uri, $parent_path = '') {
     $html = "<ul>\n";
 
     foreach ($tree as $key => $value) {
-        $is_folder = is_array($value);
+        $is_folder = is_array($value); // if it's an array, it's a folder with children
+        $classes = [];
+        $label = '';
+        $href = '#';
 
-        // Label is either from the flat menu, or fallback to empty
-        $label = $is_folder ? ($flat_menu[$key] ?? '') : $value;
-
-        // Determine href
         if ($is_folder) {
-            // If folder has an index.html entry, use that
+            // Try to find the label of the folder (if defined)
+            $folder_label = $flat_menu[$key] ?? null;
+
+            // Also check if there's an index.html file for this folder
             $index_key = $key . 'index.html';
-            if (isset($flat_menu[$index_key])) {
-                $href = $index_key;
-                $label = $flat_menu[$index_key];
-            } elseif (isset($flat_menu[$key])) {
-                $href = '#'; // No real page, just menu entry
-                $label = $flat_menu[$key];
-            } else {
-                continue; // Skip folders not explicitly defined
+            $has_index = isset($flat_menu[$index_key]);
+
+            // If neither label nor index exists, skip this folder (it's empty)
+            if ($folder_label === null && !$has_index) {
+                continue;
             }
-        } else {
-            $href = $key;
-        }
 
-        // Active class logic
-        $active = ($href === $current_uri) ? 'active' : '';
-        $active_parent = ($is_folder && str_starts_with($current_uri, $key)) ? 'active-parent' : '';
-        $classes = trim("$active $active_parent");
-        $class_attr = $classes ? ' class="' . $classes . '"' : '';
+            // Use the folder label if available
+            if ($folder_label !== null) {
+                $label = $folder_label;
+            }
 
-        // Render list item
-        $html .= "  <li$class_attr><a href=\"/" . htmlspecialchars($href) . "\">" . htmlspecialchars($label) . "</a>";
+            // Highlight folder if current URI is inside it
+            if (str_starts_with($current_uri, $key)) {
+                $classes[] = 'active-parent';
+            }
 
-        if ($is_folder) {
-            // Exclude folder itself from children if already rendered in flat menu
+            // Start folder list item
+            $class_attr = $classes ? ' class="' . implode(' ', $classes) . '"' : '';
+            $html .= "  <li$class_attr><a href=\"#\">" . htmlspecialchars($label) . "</a>\n";
+            $html .= "    <ul>\n";
+
+            // Optionally add index.html as first child item
+            if ($has_index) {
+                $index_label = $flat_menu[$index_key];
+                $active = ($current_uri === $index_key) ? 'active' : '';
+                $active_class = $active ? ' class="' . $active . '"' : '';
+                $html .= "      <li$active_class><a href=\"/" . htmlspecialchars($index_key) . "\">" . htmlspecialchars($index_label) . "</a></li>\n";
+            }
+
+            // Copy subitems and remove index + self to avoid duplication
             $subitems = $value;
+            unset($subitems[$index_key]); // don't repeat index.html
+            unset($subitems[$key]);       // don't repeat folder as page
 
-            // Remove the folder key from its own children, if it exists (to prevent duplication)
-            if (isset($subitems[$key])) {
-                unset($subitems[$key]);
-            }
-
-            // Only render submenu if children remain
             if (!empty($subitems)) {
-                $html .= "\n" . render_menu_html($subitems, $flat_menu, $current_uri, $key) . "  ";
+                // Recursively render subitems, but remove outer <ul> layer from recursion
+                $html .= substr(render_menu_html($subitems, $flat_menu, $current_uri, $key), 5, -6);
             }
-        }
 
-        $html .= "</li>\n";
+            $html .= "    </ul>\n";
+            $html .= "  </li>\n";
+
+        } else {
+            // Regular flat menu entry (no nesting)
+            $label = $value;
+            $href = $key;
+            $active = ($href === $current_uri) ? 'active' : '';
+            $class_attr = $active ? ' class="' . $active . '"' : '';
+            $html .= "  <li$class_attr><a href=\"/" . htmlspecialchars($href) . "\">" . htmlspecialchars($label) . "</a></li>\n";
+        }
     }
 
     $html .= "</ul>\n";
     return $html;
 }
+
 ?>
