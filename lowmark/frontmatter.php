@@ -11,7 +11,7 @@
  *
  * File:         frontmatter.php
  * Version:      0.5
- * Last updated: 2025-04-23
+ * Last updated: 2025-04-25
  * Homepage:     https://lowmark.de
  * Repository:   https://github.com/weitblick/lowmark
  *
@@ -115,19 +115,14 @@ function parse_simple_yaml($yaml_string) {
                 }
             }
 
-            // Handle escaped characters (e.g., \" becomes ")
-            $val = stripslashes($val);
-
             // Convert boolean strings to actual booleans
             if ($val === 'true') {
                 $val = true;
             } elseif ($val === 'false') {
                 $val = false;
-            }
-
-            // For all other values: trim surrounding quotes and whitespace
-            else {
-                $val = trim($val, "\"' \t\n\r\0\x0B");
+            } elseif (!is_array($val)) {
+                $val = stripslashes($val); // Handle escaped characters (e.g., \" becomes ")
+                $val = trim($val, "\"' \t\n\r\0\x0B"); // For all other values: trim surrounding quotes and whitespace
             }
 
             // Assign the key-value pair
