@@ -9,9 +9,12 @@
  * Depends on:   Lowmark (https://lowmark.de)
  * Part of:      Theme "Lowmark Simple Theme"
  *
- * Author:       Erhard Maria Klein (https://lowmark.de)
  * Version:      0.5
- * Last updated: 2025-04-23
+ * Last updated: 2025-04-26
+ *
+ * Copyright (c) 2025 Erhard Maria Klein, lowmark.de
+ * Licensed under the GNU General Public License v3.0 or later
+ * See https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 function details_shortcode($attributes) {
