@@ -21,7 +21,8 @@ Copyright (c) 2025 Erhard Maria Klein, lowmark.de
 Licensed under the **GNU General Public License v3.0 or later**  
 See the LICENSE file or <https://www.gnu.org/licenses/gpl-3.0.html>
 
-Depends on: Parsedown & ParsedownExtra from https://parsedown.org/
+This project includes Parsedown & ParsedownExtra from https://parsedown.org/  
+which is licensed under the MIT License.
 
 ---
 
