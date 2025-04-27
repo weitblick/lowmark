@@ -1,7 +1,0 @@
-/deploy.sh
-/preview.sh
-/update-headers.sh
-*.swp
-*.swo
-*~
-*.kate-swp
