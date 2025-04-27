@@ -458,7 +458,7 @@ function headline_ids($lowmark) {
     return ['content' => $content, 'headlines' => $headlines];
 }
 
-// Include shortcodes
+// Include all shortcodes from folder 'shortcodes/'
 function load_shortcodes($dir = 'shortcodes') {
     if (!is_dir($dir)) {
         return;
@@ -500,22 +500,13 @@ function render_shortcodes($lowmark) {
                 $attrs['end'] = true; // or use 'closing' if you prefer
             }
 
-            // Include shortcode handler
-            $handler_file = "shortcodes/{$keyword}.php";
-            if (file_exists($handler_file)) {
-                include_once($handler_file);
-                $func = $keyword . '_shortcode';
-
-                if (function_exists($func)) {
-                    // Call the shortcode function
-                    $output[] = $func($attrs);
-                } else {
-                    // Function not defined
-                    $output[] = "<!-- shortcode function '$func' not found -->";
-                }
+            // Call the shortcode function
+            $func = $keyword . '_shortcode';
+            if (function_exists($func)) {
+                $output[] = $func($attrs);
             } else {
-                // Handler file not found
-                $output[] = "<!-- shortcode handler for '$keyword' not found -->";
+                // Function not defined
+                $output[] = "<!-- shortcode function '$func' not found -->";
             }
         }
 
